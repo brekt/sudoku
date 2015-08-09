@@ -77,15 +77,14 @@ function findPossibilites(array) {
         var answer = array[i][j];
         array[i][j] = [array[i][j]];
         array[i][j].possible = [answer];
-        console.log(array[i][j].possible);
       }
       else {
         array[i][j] = [array[i][j]];
         array[i][j].possible = allPossible;
-        console.log(array[i][j].possible);
       }
     }
   }
 }
 
-var possibilities = findPossibilites(masterArray);
+findPossibilites(masterArray);
+console.log(masterArray[0][4].possible);
