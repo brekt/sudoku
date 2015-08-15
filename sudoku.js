@@ -70,13 +70,15 @@ function drawPuzzle(array) {
 
 drawPuzzle(masterArray);
 
+// Get possibilites with basic deduction.
+
 function findPossibilites(array) {
   for (var i = 0; i < array.length; i++) {
     for (var j = 0; j < array[i].length; j++) {
       if (array[i][j] != ' ') {
-        var answer = array[i][j];
+        var answer = [array[i][j]];
         array[i][j] = [array[i][j]];
-        array[i][j].possible = [answer];
+        array[i][j].possible = answer;
       }
       else {
         array[i][j] = [array[i][j]];
@@ -84,7 +86,34 @@ function findPossibilites(array) {
       }
     }
   }
+  return array;
 }
 
-findPossibilites(masterArray);
-console.log(masterArray[0][4].possible);
+// Eliminate possibilites by deduction using answers in row.
+
+function gatherAnswers(array) {
+  var answerCount = 0;
+  var unansweredCount = 0;
+  for (var i = 0; i < array.length; i++) {
+    var rowAnswers = [];
+    for (var j = 0; j < array[i].length; j++) {
+      if (array[i][j] != ' ') {
+        var answer = array[i][j][0];
+        rowAnswers.push(answer);
+        answerCount++;
+      }
+      else {
+        unansweredCount++;
+      }
+    }
+  }
+  console.log('Number of answers: ' + answerCount);
+  console.log('Number of unanswered: ' + unansweredCount);
+  return array;
+}
+
+masterArray = findPossibilites(masterArray);
+
+gatherAnswers(masterArray);
+
+// console.log(masterArray[0][0].possible)
