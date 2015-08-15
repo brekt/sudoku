@@ -1,6 +1,8 @@
 var masterString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
 var masterArray = masterString.split('');
+var answersArray = [];
 var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var possibilitiesArray = [];
 
 // Convert zeros or periods in input array to spaces.
 
@@ -78,15 +80,17 @@ function findPossibilites(array) {
       if (array[i][j] != ' ') {
         var answer = [array[i][j]];
         array[i][j] = [array[i][j]];
-        array[i][j].possible = answer;
+        possibilitiesArray.push(answer);
       }
       else {
         array[i][j] = [array[i][j]];
-        array[i][j].possible = allPossible;
+        possibilitiesArray.push(allPossible);
       }
     }
   }
-  return array;
+  console.log(possibilitiesArray);
+  console.log('Length of possibilites array: ' + possibilitiesArray.length);
+  return possibilitiesArray;
 }
 
 // Eliminate possibilites by deduction using answers in row.
@@ -112,8 +116,7 @@ function gatherAnswers(array) {
   return array;
 }
 
-masterArray = findPossibilites(masterArray);
+possibilitiesArray = findPossibilites(masterArray);
 
-gatherAnswers(masterArray);
+answersArray = gatherAnswers(masterArray);
 
-// console.log(masterArray[0][0].possible)
