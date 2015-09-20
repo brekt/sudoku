@@ -1,7 +1,14 @@
 var masterString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
 var masterArray = masterString.split('');
 var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-var possibilitiesArray = [];
+
+// This will be populated so you can call rows, cols, and boxes with dot notation.
+
+var puzzle = { 
+  row: [], //
+  col: [], 
+  box: [] 
+};
 
 // Convert zeros or periods in input array to spaces.
 
@@ -63,8 +70,8 @@ masterArray = make2dArray(masterArray);
 function drawPuzzle(array) {
   var rowBorder = ' ---+---+---+---+---+---+---+---+--- ';
   for (var i = 0; i < 9; i++) {
-  console.log(rowBorder);
-  console.log('| ' + array[i].join(' | ') + ' |');
+    console.log(rowBorder);
+    console.log('| ' + array[i].join(' | ') + ' |');
   }
   console.log(rowBorder);
 }
@@ -72,6 +79,7 @@ function drawPuzzle(array) {
 // Get possibilites with basic deduction.
 
 function findPossibilites(array) {
+  var possibilitiesArray = [];
   for (var i = 0; i < array.length; i++) {
     for (var j = 0; j < array[i].length; j++) {
       if (array[i][j] != ' ') {
@@ -89,9 +97,7 @@ function findPossibilites(array) {
   return possibilitiesArray;
 }
 
-
-
-// Eliminate possibilites by deduction using answers in row.
+// Count the number of answered and unanswered cells. Should add up to 81.
 
 function countAnswers(array) {
   var answerCount = 0;
@@ -106,10 +112,17 @@ function countAnswers(array) {
       }
     }
   }
-  console.log('Number of answers: ' + answerCount);
-  console.log('Number of unanswered: ' + unansweredCount);
+  if (answerCount + unansweredCount != 81) {
+    console.log('You don\'t have 81 answers and something is wrong here.');
+  }
+  else {
+    console.log('Number of answers: ' + answerCount);
+    console.log('Number of unanswered: ' + unansweredCount);
+  }
   return array;
 }
+
+// Get an array containing the answers in a specific row.
 
 function getRow(array, rowNum) {
   if (rowNum < 1 || rowNum > 9) {
@@ -123,9 +136,20 @@ function getRow(array, rowNum) {
     // console.log('Row ' + rowNum + ': ' + thisRow);
     process.stdout.write('Row ' + rowNum + ': ');
     console.log(thisRow);
+    puzzle.row[rowNum] = thisRow;
     return thisRow;
   }
 }
+
+// Get the answers for all the rows.
+
+function getAllRows() {
+  for (var i = 1; i <= 9; i++) {
+    getRow(masterArray, i);
+  }
+}
+
+// Get the answers in a specific column.
 
 function getCol(array, colNum) {
   if (colNum < 1 || colNum > 9) {
@@ -142,18 +166,125 @@ function getCol(array, colNum) {
     }
     process.stdout.write('Col ' + colNum + ': ');
     console.log(thisCol);
+    puzzle.col[colNum] = thisCol;
     return thisCol;
+  }
+}
+
+// Get the answers for all columns.
+
+function getAllCols() {
+  for (var i = 1; i <= 9; i++) {
+    getCol(masterArray, i);
+  }
+}
+
+/* This is how I'm numbering the 9 3x3 boxes.
+
+    [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+*/
+
+// Get the answers for a specific 3x3 box. Maybe there's a better/shorter way?
+
+function getBox(array, boxNum) {
+  if (boxNum < 1 || boxNum > 9) {
+    console.log('Your box number must be an integer between 1 and 9.');
+  }
+  else {
+    var thisBox = [];
+    switch (boxNum) {
+      case 1:
+        for (var i = 0; i < 3; i++) {
+          for (var j = 0; j < 3; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 2:
+        for (var i = 0; i < 3; i++) {
+          for (var j = 3; j < 6; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 3:
+        for (var i = 0; i < 3; i++) {
+          for (var j = 6; j < 9; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;      
+      case 4:
+        for (var i = 3; i < 6; i++) {
+          for (var j = 0; j < 3; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 5:
+        for (var i = 3; i < 6; i++) {
+          for (var j = 3; j < 6; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 6:
+        for (var i = 3; i < 6; i++) {
+          for (var j = 6; j < 9; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 7:
+        for (var i = 6; i < 9; i++) {
+          for (var j = 0; j < 3; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break; 
+      case 8:
+        for (var i = 6; i < 9; i++) {
+          for (var j = 3; j < 6; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;
+      case 9:
+        for (var i = 6; i < 9; i++) {
+          for (var j = 6; j < 9; j++) {
+            thisBox.push(array[i][j]);
+          }
+        }
+        break;                               
+      default:
+        console.log('Box not computed.');      
+    }
+    process.stdout.write('Box ' + boxNum + ': ');
+    console.log(thisBox); 
+    puzzle.box[boxNum] = thisBox;
+    return thisBox;
+  }
+}
+
+function getAllBoxes() {
+  for (var i = 1; i <= 9; i++) {
+    getBox(masterArray, i);
   }
 }
 
 drawPuzzle(masterArray);
 
-findPossibilites(masterArray);
+// findPossibilites(masterArray);
 
 countAnswers(masterArray);
 
-getRow(masterArray, 1);
+// getAllRows();
 
-getCol(masterArray, 1);
+// getAllCols();
+
+// getAllBoxes();
 
 
