@@ -78,17 +78,18 @@ function drawPuzzle(array) {
 
 // Get possibilites with basic deduction.
 
-function findPossibilites(array) {
+function findPossibilities(array) {
   var possibilitiesArray = [];
-  for (var i = 0; i < array.length; i++) {
-    for (var j = 0; j < array[i].length; j++) {
-      if (array[i][j] != ' ') {
-        var answer = [array[i][j]];
-        possibilitiesArray.push(answer);
+  for (var i = 0; i < 9; i++) {
+    var row = [];
+    for (var j = 0; j < 9; j++) {
+      if (array[i][j] === ' ') {
+        row.push(allPossible);
       }
       else {
-        possibilitiesArray.push(allPossible);
+        row.push(array[i][j]);
       }
+      possibilitiesArray.push(row);
     }
   }
   console.log('Possibilities array: ');
@@ -96,6 +97,25 @@ function findPossibilites(array) {
   console.log('Length of possibilites array: ' + possibilitiesArray.length);
   return possibilitiesArray;
 }
+
+// function findPossibilites(array) {
+//   var possibilitiesArray = [];
+//   for (var i = 0; i < array.length; i++) {
+//     for (var j = 0; j < array[i].length; j++) {
+//       if (array[i][j] != ' ') {
+//         var answer = [array[i][j]];
+//         possibilitiesArray.push(answer);
+//       }
+//       else {
+//         possibilitiesArray.push(allPossible);
+//       }
+//     }
+//   }
+//   console.log('Possibilities array: ');
+//   console.log(possibilitiesArray);
+//   console.log('Length of possibilites array: ' + possibilitiesArray.length);
+//   return possibilitiesArray;
+// }
 
 // Count the number of answered and unanswered cells. Should add up to 81.
 
@@ -131,7 +151,8 @@ function getRow(array, rowNum) {
   else {
     var thisRow = [];
     for (var i = 0; i < 9; i++) {
-      thisRow.push(array[rowNum - 1][i]);
+      var answer = array[rowNum - 1][i];
+      thisRow.push(answer);
     }
     // console.log('Row ' + rowNum + ': ' + thisRow);
     process.stdout.write('Row ' + rowNum + ': ');
@@ -277,14 +298,16 @@ function getAllBoxes() {
 
 drawPuzzle(masterArray);
 
-// findPossibilites(masterArray);
+findPossibilities(masterArray);
 
 countAnswers(masterArray);
 
-// getAllRows();
+getAllRows();
 
 // getAllCols();
 
 // getAllBoxes();
+
+console.log(puzzle.row[1]);
 
 
