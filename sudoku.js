@@ -1,11 +1,11 @@
-var masterString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
-var masterArray = masterString.split('');
+var inputString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
+var splitArray = inputString.split('');
 var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // This will be populated so you can call rows, cols, and boxes with dot notation.
 
 var puzzle = { 
-  row: [], //
+  row: [],
   col: [], 
   box: [] 
 };
@@ -13,19 +13,19 @@ var puzzle = {
 // Convert zeros or periods in input array to spaces.
 
 function blanksToSpaces(array) {
-  var periodArray = [];
+  var spacesArray = [];
   for (var i = 0; i < array.length; i++) {
     if (array[i] === '0' || array[i] === '.') {
-      periodArray.push(' ');
+      spacesArray.push(' ');
     }
     else {
-      periodArray.push(array[i]);
+      spacesArray.push(array[i]);
     }
   }
-  return periodArray;
+  return spacesArray;
 }
 
-masterArray = blanksToSpaces(masterArray);
+var spacesArray = blanksToSpaces(splitArray);
 
 // Convert string digits to numbers.
 
@@ -43,27 +43,57 @@ function stringsToNums(array) {
   return numArray;
 }
 
-masterArray = stringsToNums(masterArray);
+var numArray = stringsToNums(spacesArray);
 
 // Make the puzzle array into a 2d (9x9) array.
 
 function make2dArray(array) {
-  var puzzle = [];
+  var array2d = [];
   var row = [];
   for (var i = 0; i < array.length; i++) {
     if (i != 0 && (i === 8 || (i - 8) % 9 === 0)) {
       row.push(array[i]);
-      puzzle.push(row);
+      array2d.push(row);
       row = [];
     }
     else {
       row.push(array[i]);
     }
   }
-  return puzzle;
+  return array2d;
 }
 
-masterArray = make2dArray(masterArray);
+var array2d = make2dArray(numArray);
+
+// Make a 2d array that contains the possibilities.
+
+function make2dPossibleArray(array) {
+  var array2dPossible = [];
+  var row = [];
+  for (var i = 0; i < array.length; i++) {
+    if (i != 0 && (i === 8 || (i - 8) % 9 === 0)) {
+      if (array[i] === ' ') {
+        row.push(allPossible);
+      }
+      else {
+        row.push(array[i]);
+      }
+      array2dPossible.push(row);
+      row = [];
+    }
+    else {
+      if (array[i] === ' ') {
+        row.push(allPossible);
+      }
+      else {
+        row.push(array[i]);
+      }
+    }
+  }
+  return array2dPossible;
+}
+
+var array2dPossible = make2dPossibleArray(numArray);
 
 // Draw the puzzle with known squares in the console.
 
@@ -75,49 +105,6 @@ function drawPuzzle(array) {
   }
   console.log(rowBorder);
 }
-
-// Get possibilites with basic deduction.
-
-function findPossibilities(array) {
-  var possibilitiesArray = [];
-  for (var i = 0; i < 9; i++) {
-    var row = [];
-    for (var j = 0; j < 9; j++) {
-      if (array[i][j] === ' ') {
-        row.push(allPossible);
-      }
-      else {
-        row.push(array[i][j]);
-      }
-      possibilitiesArray.push(row);
-    }
-  }
-  console.log('Possibilities array: ');
-  console.log(possibilitiesArray);
-  console.log('Length of possibilites array: ' + possibilitiesArray.length);
-  return possibilitiesArray;
-}
-
-// function findPossibilites(array) {
-//   var possibilitiesArray = [];
-//   for (var i = 0; i < array.length; i++) {
-//     for (var j = 0; j < array[i].length; j++) {
-//       if (array[i][j] != ' ') {
-//         var answer = [array[i][j]];
-//         possibilitiesArray.push(answer);
-//       }
-//       else {
-//         possibilitiesArray.push(allPossible);
-//       }
-//     }
-//   }
-//   console.log('Possibilities array: ');
-//   console.log(possibilitiesArray);
-//   console.log('Length of possibilites array: ' + possibilitiesArray.length);
-//   return possibilitiesArray;
-// }
-
-// Count the number of answered and unanswered cells. Should add up to 81.
 
 function countAnswers(array) {
   var answerCount = 0;
@@ -296,18 +283,17 @@ function getAllBoxes() {
   }
 }
 
-drawPuzzle(masterArray);
+drawPuzzle(array2d);
 
-findPossibilities(masterArray);
+console.log(array2dPossible);
 
-countAnswers(masterArray);
+// countAnswers(masterArray);
 
-getAllRows();
+// getAllRows();
 
 // getAllCols();
 
 // getAllBoxes();
 
-console.log(puzzle.row[1]);
 
 
