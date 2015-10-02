@@ -283,9 +283,58 @@ function getAllBoxes() {
   }
 }
 
+// function rowDeduction(array) {
+//   var counter = 0;
+//   for (var i = 0; i < array.length; i++) {
+//     for (var j = 0; j < array[i].length; j++) {
+//       var answerArray = [];
+//       var possibilityList = array[i][j];
+//       if (possibilityList >= 1 && possibilityList <= 9) {
+//         answerArray.push(possibilityList);
+//       }
+//     }
+//     for (var k = 0; k < array[i].length; k++) {
+//       if (array[i][k].length > 1) {
+//         for (var l = 0; l < array[i][k].length; l++) {
+//           console.log(array[i][k][l]);
+//           counter++
+//         }
+//       }
+//     }     
+//   }
+//   console.log('counter: ' + counter);
+//   return array;
+// }
+
+function rowDeduction(array) {
+  array.forEach(function(row) {
+    var answerArray = [];
+    var mutablePossible = allPossible;
+    for (var i = 0; i < row.length; i++) {
+      if (row[i] >= 1 && row[i] <= 9) {
+        answerArray.push(row[i]);
+      }
+    }
+    for (var j = 0; j < row.length; j++) {
+      for (var k = 0; k < row[j].length; k++) {
+        // todo
+      }
+    }
+  });
+  return array;
+}
+
 drawPuzzle(array2d);
 
-console.log(array2dPossible);
+// console.log('Possible array: ');
+
+// console.log(array2dPossible);
+
+var rowDeduced = rowDeduction(array2dPossible);
+
+console.log('Possible after row deduction: ');
+
+console.log(rowDeduced);
 
 // countAnswers(masterArray);
 
