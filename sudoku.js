@@ -183,79 +183,83 @@ function getBox(array, boxNum) {
       case 1:
         for (var i = 0; i < 3; i++) {
           for (var j = 0; j < 3; j++) {
-            thisBox.push(array[i][j]);
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }
           }
         }
         break;
       case 2:
         for (var i = 0; i < 3; i++) {
           for (var j = 3; j < 6; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 3:
         for (var i = 0; i < 3; i++) {
           for (var j = 6; j < 9; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 4:
         for (var i = 3; i < 6; i++) {
           for (var j = 0; j < 3; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 5:
         for (var i = 3; i < 6; i++) {
           for (var j = 3; j < 6; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 6:
         for (var i = 3; i < 6; i++) {
           for (var j = 6; j < 9; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 7:
         for (var i = 6; i < 9; i++) {
           for (var j = 0; j < 3; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 8:
         for (var i = 6; i < 9; i++) {
           for (var j = 3; j < 6; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       case 9:
         for (var i = 6; i < 9; i++) {
           for (var j = 6; j < 9; j++) {
-            thisBox.push(array[i][j]);
-          }
+            if (array[i][j] != ' ') {
+              thisBox.push(array[i][j]);
+            }          }
         }
         break;
       default:
         console.log('Box not computed.');
     }
-    process.stdout.write('Box ' + boxNum + ': ');
-    console.log(thisBox);
+    // process.stdout.write('Box ' + boxNum + ': ');
+    // console.log(thisBox);
     puzzle.box[boxNum] = thisBox;
     return thisBox;
-  }
-}
-
-function getAllBoxes() {
-  for (var i = 1; i <= 9; i++) {
-    getBox(masterArray, i);
   }
 }
 
@@ -275,6 +279,37 @@ function getRowAnswers(array, log) {
   }
 }
 
+function getColAnswers(array, log) {
+  for (var i = 0; i < 9; i++) {
+    var thisColAnswers = [];
+    array.forEach(function(row) {
+      if (row[i] != ' ') {
+        thisColAnswers.push(row[i]);
+      }
+    });
+    masterColAnswers.push(thisColAnswers);
+  }
+  if (log === true) {
+    console.log('Column Answers: ');
+    console.log(masterColAnswers);
+  }
+}
+
+function getBoxAnswers(array, log) {
+  for (var i = 1; i <= 9; i++) {
+    var thisBox = getBox(masterArray, i);
+    masterBoxAnswers.push(thisBox);
+  }
+  if (log === true) {
+    console.log('Box Answers: ');
+    console.log(masterBoxAnswers);
+  }
+}
+
 drawPuzzle(masterArray);
 
 getRowAnswers(masterArray, true);
+
+getColAnswers(masterArray, true);
+
+getBoxAnswers(masterArray, true);
