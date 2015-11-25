@@ -2,12 +2,17 @@ var inputString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196..
 var splitArray = inputString.split('');
 var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+var masterArray = [];
+var masterRowAnswers = [];
+var masterColAnswers = [];
+var masterBoxAnswers = [];
+
 // This will be populated so you can call rows, cols, and boxes with dot notation.
 
-var puzzle = { 
+var puzzle = {
   row: [],
-  col: [], 
-  box: [] 
+  col: [],
+  box: []
 };
 
 // Convert zeros or periods in input array to spaces.
@@ -63,37 +68,8 @@ function make2dArray(array) {
   return array2d;
 }
 
-var array2d = make2dArray(numArray);
+var masterArray = make2dArray(numArray);
 
-// Make a 2d array that contains the possibilities.
-
-function make2dPossibleArray(array) {
-  var array2dPossible = [];
-  var row = [];
-  for (var i = 0; i < array.length; i++) {
-    if (i != 0 && (i === 8 || (i - 8) % 9 === 0)) {
-      if (array[i] === ' ') {
-        row.push(allPossible);
-      }
-      else {
-        row.push(array[i]);
-      }
-      array2dPossible.push(row);
-      row = [];
-    }
-    else {
-      if (array[i] === ' ') {
-        row.push(allPossible);
-      }
-      else {
-        row.push(array[i]);
-      }
-    }
-  }
-  return array2dPossible;
-}
-
-var array2dPossible = make2dPossibleArray(numArray);
 
 // Draw the puzzle with known squares in the console.
 
@@ -224,7 +200,7 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break;      
+        break;
       case 4:
         for (var i = 3; i < 6; i++) {
           for (var j = 0; j < 3; j++) {
@@ -252,7 +228,7 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break; 
+        break;
       case 8:
         for (var i = 6; i < 9; i++) {
           for (var j = 3; j < 6; j++) {
@@ -266,12 +242,12 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break;                               
+        break;
       default:
-        console.log('Box not computed.');      
+        console.log('Box not computed.');
     }
     process.stdout.write('Box ' + boxNum + ': ');
-    console.log(thisBox); 
+    console.log(thisBox);
     puzzle.box[boxNum] = thisBox;
     return thisBox;
   }
@@ -283,66 +259,22 @@ function getAllBoxes() {
   }
 }
 
-// function rowDeduction(array) {
-//   var counter = 0;
-//   for (var i = 0; i < array.length; i++) {
-//     for (var j = 0; j < array[i].length; j++) {
-//       var answerArray = [];
-//       var possibilityList = array[i][j];
-//       if (possibilityList >= 1 && possibilityList <= 9) {
-//         answerArray.push(possibilityList);
-//       }
-//     }
-//     for (var k = 0; k < array[i].length; k++) {
-//       if (array[i][k].length > 1) {
-//         for (var l = 0; l < array[i][k].length; l++) {
-//           console.log(array[i][k][l]);
-//           counter++
-//         }
-//       }
-//     }     
-//   }
-//   console.log('counter: ' + counter);
-//   return array;
-// }
-
-function rowDeduction(array) {
+function getRowAnswers(array, log) {
   array.forEach(function(row) {
-    var answerArray = [];
-    var mutablePossible = allPossible;
-    for (var i = 0; i < row.length; i++) {
-      if (row[i] >= 1 && row[i] <= 9) {
-        answerArray.push(row[i]);
+    var thisRowAnswers = [];
+    row.forEach(function(cell) {
+      if (cell !== ' ') {
+        thisRowAnswers.push(cell);
       }
-    }
-    for (var j = 0; j < row.length; j++) {
-      for (var k = 0; k < row[j].length; k++) {
-        // todo
-      }
-    }
+    });
+    masterRowAnswers.push(thisRowAnswers);
   });
-  return array;
+  if (log === true) {
+    console.log('Row Answers: ')
+    console.log(masterRowAnswers);
+  }
 }
 
-drawPuzzle(array2d);
+drawPuzzle(masterArray);
 
-// console.log('Possible array: ');
-
-// console.log(array2dPossible);
-
-var rowDeduced = rowDeduction(array2dPossible);
-
-console.log('Possible after row deduction: ');
-
-console.log(rowDeduced);
-
-// countAnswers(masterArray);
-
-// getAllRows();
-
-// getAllCols();
-
-// getAllBoxes();
-
-
-
+getRowAnswers(masterArray, true);
