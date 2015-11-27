@@ -1,19 +1,10 @@
 var inputString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
 var splitArray = inputString.split('');
-var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 var masterArray = [];
 var masterRowAnswers = [];
 var masterColAnswers = [];
 var masterBoxAnswers = [];
-
-// This will be populated so you can call rows, cols, and boxes with dot notation.
-
-var puzzle = {
-  row: [],
-  col: [],
-  box: []
-};
 
 // Convert zeros or periods in input array to spaces.
 
@@ -125,14 +116,6 @@ function getRow(array, rowNum) {
   }
 }
 
-// Get the answers for all the rows.
-
-function getAllRows() {
-  for (var i = 1; i <= 9; i++) {
-    getRow(masterArray, i);
-  }
-}
-
 // Get the answers in a specific column.
 
 function getCol(array, colNum) {
@@ -155,14 +138,6 @@ function getCol(array, colNum) {
   }
 }
 
-// Get the answers for all columns.
-
-function getAllCols() {
-  for (var i = 1; i <= 9; i++) {
-    getCol(masterArray, i);
-  }
-}
-
 /* This is how I'm numbering the 9 3x3 boxes.
 
     [[1, 2, 3],
@@ -171,96 +146,98 @@ function getAllCols() {
 
 */
 
-// Get the answers for a specific 3x3 box. Maybe there's a better/shorter way?
+// Get the answers for a specific 3x3 box.
 
 function getBox(array, boxNum) {
-  if (boxNum < 1 || boxNum > 9) {
-    console.log('Your box number must be an integer between 1 and 9.');
-  }
-  else {
-    var thisBox = [];
-    switch (boxNum) {
-      case 1:
-        for (var i = 0; i < 3; i++) {
-          for (var j = 0; j < 3; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }
+  var thisBox = [];
+  switch (boxNum) {
+    case 0:
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
           }
         }
-        break;
-      case 2:
-        for (var i = 0; i < 3; i++) {
-          for (var j = 3; j < 6; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 1:
+      for (var i = 0; i < 3; i++) {
+        for (var j = 3; j < 6; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 3:
-        for (var i = 0; i < 3; i++) {
-          for (var j = 6; j < 9; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 2:
+      for (var i = 0; i < 3; i++) {
+        for (var j = 6; j < 9; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 4:
-        for (var i = 3; i < 6; i++) {
-          for (var j = 0; j < 3; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 3:
+      for (var i = 3; i < 6; i++) {
+        for (var j = 0; j < 3; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 5:
-        for (var i = 3; i < 6; i++) {
-          for (var j = 3; j < 6; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 4:
+      for (var i = 3; i < 6; i++) {
+        for (var j = 3; j < 6; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 6:
-        for (var i = 3; i < 6; i++) {
-          for (var j = 6; j < 9; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 5:
+      for (var i = 3; i < 6; i++) {
+        for (var j = 6; j < 9; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 7:
-        for (var i = 6; i < 9; i++) {
-          for (var j = 0; j < 3; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 6:
+      for (var i = 6; i < 9; i++) {
+        for (var j = 0; j < 3; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 8:
-        for (var i = 6; i < 9; i++) {
-          for (var j = 3; j < 6; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 7:
+      for (var i = 6; i < 9; i++) {
+        for (var j = 3; j < 6; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      case 9:
-        for (var i = 6; i < 9; i++) {
-          for (var j = 6; j < 9; j++) {
-            if (array[i][j] != ' ') {
-              thisBox.push(array[i][j]);
-            }          }
+      }
+      break;
+    case 8:
+      for (var i = 6; i < 9; i++) {
+        for (var j = 6; j < 9; j++) {
+          if (array[i][j] != ' ') {
+            thisBox.push(array[i][j]);
+          }
         }
-        break;
-      default:
-        console.log('Box not computed.');
-    }
-    // process.stdout.write('Box ' + boxNum + ': ');
-    // console.log(thisBox);
-    puzzle.box[boxNum] = thisBox;
-    return thisBox;
+      }
+      break;
+    default:
+      console.log('Box not computed.');
   }
+  // process.stdout.write('Box ' + boxNum + ': ');
+  // console.log(thisBox);
+  return thisBox;
 }
 
 function getRowAnswers(array, log) {
@@ -296,7 +273,7 @@ function getColAnswers(array, log) {
 }
 
 function getBoxAnswers(array, log) {
-  for (var i = 1; i <= 9; i++) {
+  for (var i = 0; i < 9; i++) {
     var thisBox = getBox(masterArray, i);
     masterBoxAnswers.push(thisBox);
   }
