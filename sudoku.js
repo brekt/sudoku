@@ -306,6 +306,48 @@ function getBoxAnswers(array, log) {
   }
 }
 
+// Solve puzzle by trying all possibilities after taking answers into account.
+
+function brutishForce(array, log) {
+  var tryCounter = 0;
+  var cellRow;
+  var cellCol;
+  var cellBox;
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < array[i].length; j++) {
+      var cell = array[i][j];
+      if (cell == ' ') {
+        cellRow = i;
+        cellCol = j;
+        if (i < 3 && j < 3) {
+          cellBox = 0;
+        } else if (i < 3 && j < 6) {
+          cellBox = 1;
+        } else if (i < 3 && j < 9) {
+          cellBox = 2;
+        } else if (i < 6 && j < 3) {
+          cellBox = 3;
+        } else if (i < 6 && j < 6) {
+          cellBox = 4;
+        } else if (i < 6 && j < 9) {
+          cellBox = 5;
+        } else if (i < 9 && j < 3) {
+          cellBox = 6;
+        } else if (i < 9 && j < 6) {
+          cellBox = 7;
+        } else if (i < 9 && j < 9) {
+          cellBox = 8;
+        }
+        console.log('Cell Row: ' + cellRow);
+        console.log('Cell Col: ' + cellCol);
+        console.log('Cell Box: ' + cellBox);
+        console.log('-----------');
+
+      }
+    }
+  }
+}
+
 drawPuzzle(masterArray);
 
 getRowAnswers(masterArray, true);
@@ -313,3 +355,5 @@ getRowAnswers(masterArray, true);
 getColAnswers(masterArray, true);
 
 getBoxAnswers(masterArray, true);
+
+brutishForce(masterArray);
