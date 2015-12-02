@@ -304,23 +304,32 @@ function findFirstEmpty(array, log) {
 
 function whichBox(row, col, log) {
   var cellBox;
-  if (row < 3 && col < 3) {
+
+    // top 3
+
+  if (row >= 0 && row <= 2 && col >=0 && col <= 2) {
     cellBox = 0;
-  } else if (row < 3 && col < 6) {
+  } else if (row >= 0 && row <=2 && col >=3 && col <= 5) {
     cellBox = 1;
-  } else if (row < 3 && col < 9) {
+  } else if (row >= 0 && row <=2 && col >=6 && col <= 8) {
     cellBox = 2;
-  } else if (row < 6 && col < 3) {
+
+    // middle 3
+
+  } else if (row >= 3 && row <=5 && col >=0 && col <= 2) {
     cellBox = 3;
-  } else if (row < 6 && col < 6) {
+  } else if (row >= 3 && row <=5 && col >=3 && col <= 5) {
     cellBox = 4;
-  } else if (row < 6 && col < 9) {
+  } else if (row >= 3 && row <=5 && col >=6 && col <= 8) {
     cellBox = 5;
-  } else if (row < 9 && col < 3) {
+
+    // bottom 3
+
+  } else if (row >= 6 && row <=8 && col >=0 && col <= 2) {
     cellBox = 6;
-  } else if (row < 9 && col < 6) {
+  } else if (row >= 6 && row <=8 && col >=3 && col <= 5) {
     cellBox = 7;
-  } else if (row < 9 && col < 9) {
+  } else if (row >= 6 && row <=8 && col >=6 && col <= 8) {
     cellBox = 8;
   }
   if (log === true) {
@@ -394,9 +403,10 @@ function brutishForce (array, log) {
         answer = 1;
       }
       if (checkAnswer(solvingPuzzle, row, col, answer)) {
+        solvingPuzzle[row][col] = answer;
         drawPuzzle(solvingPuzzle);
         console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-        solvingPuzzle[row][col] = answer;
+        console.log('row: ' + row, 'col: ' + col, 'answer: ' + answer);
         if (row === 8 && col === 8) {
           console.log('Solved!');
           drawPuzzle(solvingPuzzle);
