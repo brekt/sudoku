@@ -389,6 +389,10 @@ function brutishForce (array, log) {
   var answer = 1;
   while (row < 9) {
     while (col < 9){
+      if (solvingPuzzle[row][col] !== ' ') {
+        col++;
+        answer = 1;
+      }
       if (checkAnswer(solvingPuzzle, row, col, answer)) {
         drawPuzzle(solvingPuzzle);
         console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
@@ -400,12 +404,10 @@ function brutishForce (array, log) {
         }
         col++;
         answer = 1;
-        if (solvingPuzzle[row][col] !== ' ') {
-          col++;
-        }
         if (col > 8) {
           row++;
           col = 0;
+          answer = 1;
         }
       } else {
         answer++;
