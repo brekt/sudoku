@@ -140,9 +140,9 @@ function getCol(array, colNum) {
 
 /* This is how I'm numbering the 9 3x3 boxes.
 
-    [[1, 2, 3],
-     [4, 5, 6],
-     [7, 8, 9]]
+    [[0, 1, 2],
+     [3, 4, 5],
+     [6, 7, 8]]
 
 */
 
@@ -251,7 +251,7 @@ function getRowAnswers(array, log) {
     masterRowAnswers.push(thisRowAnswers);
   });
   if (log === true) {
-    console.log('Row Answers: ')
+    console.log('Row Answers: ');
     console.log(masterRowAnswers);
   }
 }
@@ -283,54 +283,153 @@ function getBoxAnswers(array, log) {
   }
 }
 
-// Solve puzzle by trying all possibilities after taking answers into account.
+// Find first empty cell to start testing solutions. Run this inside brutishForce.
 
-function brutishForce(array, log) {
-  var tryCounter = 0;
-  var cellRow;
-  var cellCol;
-  var cellBox;
+function findFirstEmpty(array, log) {
+  var firstAnswer = [];
   for (var i = 0; i < array.length; i++) {
     for (var j = 0; j < array[i].length; j++) {
-      var cell = array[i][j];
-      if (cell == ' ') {
-        cellRow = i;
-        cellCol = j;
-        if (i < 3 && j < 3) {
-          cellBox = 0;
-        } else if (i < 3 && j < 6) {
-          cellBox = 1;
-        } else if (i < 3 && j < 9) {
-          cellBox = 2;
-        } else if (i < 6 && j < 3) {
-          cellBox = 3;
-        } else if (i < 6 && j < 6) {
-          cellBox = 4;
-        } else if (i < 6 && j < 9) {
-          cellBox = 5;
-        } else if (i < 9 && j < 3) {
-          cellBox = 6;
-        } else if (i < 9 && j < 6) {
-          cellBox = 7;
-        } else if (i < 9 && j < 9) {
-          cellBox = 8;
+      if (array[i][j] === ' ') {
+        firstEmpty = [i, j];
+        if (log === true) {
+          console.log('First Empty: ', firstEmpty);
         }
-        console.log('Cell Row: ' + cellRow);
-        console.log('Cell Col: ' + cellCol);
-        console.log('Cell Box: ' + cellBox);
-        console.log('-----------');
-
+        return firstEmpty;
       }
     }
   }
 }
 
+// Which box, 0-8, is a given cell in?
+
+function whichBox(row, col, log) {
+  var cellBox;
+  if (row < 3 && col < 3) {
+    cellBox = 0;
+  } else if (row < 3 && col < 6) {
+    cellBox = 1;
+  } else if (row < 3 && col < 9) {
+    cellBox = 2;
+  } else if (row < 6 && col < 3) {
+    cellBox = 3;
+  } else if (row < 6 && col < 6) {
+    cellBox = 4;
+  } else if (row < 6 && col < 9) {
+    cellBox = 5;
+  } else if (row < 9 && col < 3) {
+    cellBox = 6;
+  } else if (row < 9 && col < 6) {
+    cellBox = 7;
+  } else if (row < 9 && col < 9) {
+    cellBox = 8;
+  }
+  if (log === true) {
+    console.log('Cell Box: ' + cellBox);
+  }
+  return cellBox;
+}
+
+// function checkAnswer(row, col, box, value, log) {
+//   var rowAnswers = [masterRowAnswers[row]];
+//   var colAnswers = [masterColAnswers[col]];
+//   var boxAnswers = [masterBoxAnswers[box]];
+//   if (rowAnswers.indexOf(value) !== -1) {
+//     if (log === true) {
+//       console.log('Value: ' + value + ' found in row.');
+//     }
+//     return false;
+//   } else if (colAnswers.indexOf(value) !== -1) {
+//     if (log === true) {
+//       console.log('Value: ' + value + ' found in column.');
+//     }
+//     return false;
+//   } else if (boxAnswers.indexOf(value) !== -1) {
+//       if (log === true) {
+//         console.log('Value: ' + value + ' found in box.');
+//       }
+//     return false;
+//   } else {
+//     return true;
+//   }
+// }
+
+function checkAnswer(array, row, col, value) {
+  if (array[row].indexOf(value) !== -1) {
+    return false;
+  }
+  for (var i = 0; i < array.length; i++) {
+    if (array[i][col] === value) {
+      return false;
+    }
+  }
+  var boxNum = whichBox(row, col, false);
+  var boxAnswers = getBox(array, boxNum);
+  if (boxAnswers.indexOf(value) !== -1) {
+    return false;
+  }
+  return true;
+}
+
+function brutishForce (array, log) {
+  /*  1. find the first empty square (done already with another function)
+      2. put the smallest number between 1 and 9 that isn't in the answer arrays
+         into that cell. (return the first number that isn't in the answer arrays)
+         if you reach col 8 and find a valid answer, move on to the next row.
+      3. move on to the next cell and put the smallest valid answer into that
+         cell. if no answer is valid move back one cell (column) and increase
+         that cell's answer to the next valid number.
+      4. if you reach row 8 col 8 and find a valid answer, return the current
+         puzzle and draw it with drawPuzzle.
+  */
+
+  // start row, col, and box which will be checked each time
+  var row = firstEmpty[0];
+  var col = firstEmpty[1];
+  var solvingPuzzle = array;
+  var answer = 1;
+  while (row < 9) {
+    while (col < 9){
+      if (checkAnswer(solvingPuzzle, row, col, answer)) {
+        drawPuzzle(solvingPuzzle);
+        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+        solvingPuzzle[row][col] = answer;
+        if (row === 8 && col === 8) {
+          console.log('Solved!');
+          drawPuzzle(solvingPuzzle);
+          return true;
+        }
+        col++;
+        answer = 1;
+        if (solvingPuzzle[row][col] !== ' ') {
+          col++;
+        }
+        if (col > 8) {
+          row++;
+          col = 0;
+        }
+      } else {
+        answer++;
+        if (col === 0 && answer > 9) {
+          row--;
+          col = 8;
+          answer = solvingPuzzle[row][col]++;
+        }
+        if (answer > 9) {
+          col--;
+          answer = solvingPuzzle[row][col]++;
+        }
+      }
+    }
+  }
+}
 drawPuzzle(masterArray);
 
-getRowAnswers(masterArray, true);
+getRowAnswers(masterArray, false);
 
-getColAnswers(masterArray, true);
+getColAnswers(masterArray,false);
 
-getBoxAnswers(masterArray, true);
+getBoxAnswers(masterArray,false);
+
+var firstEmpty = findFirstEmpty(masterArray,false);
 
 brutishForce(masterArray);
