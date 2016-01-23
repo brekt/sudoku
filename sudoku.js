@@ -4,10 +4,10 @@ var allPossible = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // This will be populated so you can call rows, cols, and boxes with dot notation.
 
-var puzzle = { 
+var puzzle = {
   row: [],
-  col: [], 
-  box: [] 
+  col: [],
+  box: []
 };
 
 // Convert zeros or periods in input array to spaces.
@@ -64,6 +64,22 @@ function make2dArray(array) {
 }
 
 var array2d = make2dArray(numArray);
+
+// Make an array of answered squares to be skipped over when solving.
+
+function getInitialAnswers(array) {
+  var answerDupleArray = [];
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < array.length; j++) {
+      if (array[i][j] != ' ') {
+        answerDupleArray.push([i, j]);
+      }
+    }
+  }
+  return answerDupleArray;
+}
+
+var answerDupleArray = getInitialAnswers(array2d);
 
 // Make a 2d array that contains the possibilities.
 
@@ -224,7 +240,7 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break;      
+        break;
       case 4:
         for (var i = 3; i < 6; i++) {
           for (var j = 0; j < 3; j++) {
@@ -252,7 +268,7 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break; 
+        break;
       case 8:
         for (var i = 6; i < 9; i++) {
           for (var j = 3; j < 6; j++) {
@@ -266,12 +282,12 @@ function getBox(array, boxNum) {
             thisBox.push(array[i][j]);
           }
         }
-        break;                               
+        break;
       default:
-        console.log('Box not computed.');      
+        console.log('Box not computed.');
     }
     process.stdout.write('Box ' + boxNum + ': ');
-    console.log(thisBox); 
+    console.log(thisBox);
     puzzle.box[boxNum] = thisBox;
     return thisBox;
   }
@@ -300,7 +316,7 @@ function getAllBoxes() {
 //           counter++
 //         }
 //       }
-//     }     
+//     }
 //   }
 //   console.log('counter: ' + counter);
 //   return array;
@@ -343,6 +359,3 @@ console.log(rowDeduced);
 // getAllCols();
 
 // getAllBoxes();
-
-
-
