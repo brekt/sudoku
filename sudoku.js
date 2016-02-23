@@ -47,7 +47,7 @@ function make2dArray(array) {
   var array2d = [];
   var row = [];
   for (var i = 0; i < array.length; i++) {
-    if (i != 0 && (i === 8 || (i - 8) % 9 === 0)) {
+    if (i !== 0 && (i === 8 || (i - 8) % 9 === 0)) {
       row.push(array[i]);
       array2d.push(row);
       row = [];
@@ -61,6 +61,35 @@ function make2dArray(array) {
 
 var masterArray = make2dArray(numArray);
 
+function makeAnswerDupleArray(array) {
+  var dupleAnswerArray = [];
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < array[i].length; j++) {
+      if (array[i][j] != ' ') {
+        var duple = [i, j];
+        dupleAnswerArray.push(duple);
+      }
+    }
+  }
+  return dupleAnswerArray;
+}
+
+var dupleAnswerArray = makeAnswerDupleArray(masterArray);
+
+function makeUnansweredDupleArray(array) {
+  var dupleUnansweredArray = [];
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < array[i].length; j++) {
+      if (array[i][j] === ' ') {
+        var duple = [i, j];
+        dupleUnansweredArray.push(duple);
+      }
+    }
+  }
+  return dupleUnansweredArray;
+}
+
+var dupleUnansweredArray = makeUnansweredDupleArray(masterArray);
 
 // Draw the puzzle with known squares in the console.
 
@@ -283,23 +312,6 @@ function getBoxAnswers(array, log) {
   }
 }
 
-// Find first empty cell to start testing solutions. Run this inside brutishForce.
-
-function findFirstEmpty(array, log) {
-  var firstAnswer = [];
-  for (var i = 0; i < array.length; i++) {
-    for (var j = 0; j < array[i].length; j++) {
-      if (array[i][j] === ' ') {
-        firstEmpty = [i, j];
-        if (log === true) {
-          console.log('First Empty: ', firstEmpty);
-        }
-        return firstEmpty;
-      }
-    }
-  }
-}
-
 // Which box, 0-8, is a given cell in?
 
 function whichBox(row, col, log) {
@@ -338,30 +350,6 @@ function whichBox(row, col, log) {
   return cellBox;
 }
 
-// function checkAnswer(row, col, box, value, log) {
-//   var rowAnswers = [masterRowAnswers[row]];
-//   var colAnswers = [masterColAnswers[col]];
-//   var boxAnswers = [masterBoxAnswers[box]];
-//   if (rowAnswers.indexOf(value) !== -1) {
-//     if (log === true) {
-//       console.log('Value: ' + value + ' found in row.');
-//     }
-//     return false;
-//   } else if (colAnswers.indexOf(value) !== -1) {
-//     if (log === true) {
-//       console.log('Value: ' + value + ' found in column.');
-//     }
-//     return false;
-//   } else if (boxAnswers.indexOf(value) !== -1) {
-//       if (log === true) {
-//         console.log('Value: ' + value + ' found in box.');
-//       }
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
-
 function checkAnswer(array, row, col, value) {
   if (array[row].indexOf(value) !== -1) {
     return false;
@@ -379,69 +367,56 @@ function checkAnswer(array, row, col, value) {
   return true;
 }
 
-function brutishForce (array, log) {
-  /*  1. find the first empty square (done already with another function)
-      2. put the smallest number between 1 and 9 that isn't in the answer arrays
-         into that cell. (return the first number that isn't in the answer arrays)
-         if you reach col 8 and find a valid answer, move on to the next row.
-      3. move on to the next cell and put the smallest valid answer into that
-         cell. if no answer is valid move back one cell (column) and increase
-         that cell's answer to the next valid number.
-      4. if you reach row 8 col 8 and find a valid answer, return the current
-         puzzle and draw it with drawPuzzle.
-  */
-
-  // start row, col, and box which will be checked each time
-  var row = firstEmpty[0];
-  var col = firstEmpty[1];
-  var solvingPuzzle = array;
-  var answer = 1;
-  while (row < 9) {
-    while (col < 9){
-      if (solvingPuzzle[row][col] !== ' ') {
-        col++;
-        answer = 1;
-      }
-      if (checkAnswer(solvingPuzzle, row, col, answer)) {
-        solvingPuzzle[row][col] = answer;
-        drawPuzzle(solvingPuzzle);
-        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-        console.log('row: ' + row, 'col: ' + col, 'answer: ' + answer);
-        if (row === 8 && col === 8) {
-          console.log('Solved!');
-          drawPuzzle(solvingPuzzle);
-          return true;
-        }
-        col++;
-        answer = 1;
-        if (col > 8) {
-          row++;
-          col = 0;
-          answer = 1;
-        }
-      } else {
-        answer++;
-        if (col === 0 && answer > 9) {
-          row--;
-          col = 8;
-          answer = solvingPuzzle[row][col]++;
-        }
-        if (answer > 9) {
-          col--;
-          answer = solvingPuzzle[row][col]++;
-        }
-      }
+function isAnswered(row, col) {
+  for (var i = 0; i < dupleAnswerArray.length; i++) {
+    if (dupleAnswerArray[i][0] === row && dupleAnswerArray[i][1] === col) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
-drawPuzzle(masterArray);
+
+function brutishForce (array) {
+  var puzzle = array;
+  var blanks = dupleUnansweredArray;
+  var row;
+  var col;
+  var answer = 1;
+  var backtracking;
+  drawPuzzle(puzzle);
+  for (var i = 0; i < blanks.length;) {
+    answer = 1;
+    backtracking = false;
+    row = blanks[i][0];
+    col = blanks[i][1];
+    if (puzzle[row][col] === ' ') {
+      puzzle[row][col] = answer;
+    } else {
+      puzzle[row][col]++;
+      answer = puzzle[row][col];
+    }
+    console.log(answer);
+    while(!checkAnswer(puzzle, row, col, answer)) {
+      answer++;
+      if (answer > 9) {
+        backtracking = true;
+        i--;
+      }
+    }
+    if (backtracking === false) {
+      puzzle[row][col] = answer;
+      i++;
+    }
+    drawPuzzle(puzzle);
+  }
+  drawPuzzle(puzzle);
+}
 
 getRowAnswers(masterArray, false);
 
-getColAnswers(masterArray,false);
+getColAnswers(masterArray, false);
 
-getBoxAnswers(masterArray,false);
-
-var firstEmpty = findFirstEmpty(masterArray,false);
+getBoxAnswers(masterArray, false);
 
 brutishForce(masterArray);
