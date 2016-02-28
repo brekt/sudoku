@@ -351,6 +351,9 @@ function whichBox(row, col, log) {
 }
 
 function checkAnswer(array, row, col, value) {
+  if (value === 0) {
+    return false;
+  }
   if (array[row].indexOf(value) !== -1) {
     return false;
   }
@@ -377,38 +380,40 @@ function isAnswered(row, col) {
   }
 }
 
+function blanksToZeros(array, blanksArray) {
+  var counter = 0;
+  while (counter < blanksArray.length) {
+    row = blanksArray[counter][0];
+    col = blanksArray[counter][1];
+    if (array[row][col] === ' ') {
+      array[row][col] = 0;
+    }
+    counter++;
+  }
+  return array;
+}
+
 function brutishForce (array) {
-  var puzzle = array;
+  var puzzle = blanksToZeros(array, dupleUnansweredArray);
   var blanks = dupleUnansweredArray;
+  console.log(puzzle, blanks);
   var row;
   var col;
-  var answer = 1;
-  var backtracking;
-  drawPuzzle(puzzle);
-  for (var i = 0; i < blanks.length;) {
-    answer = 1;
-    backtracking = false;
-    row = blanks[i][0];
-    col = blanks[i][1];
-    if (puzzle[row][col] === ' ') {
-      puzzle[row][col] = answer;
-    } else {
-      puzzle[row][col]++;
-      answer = puzzle[row][col];
-    }
-    console.log(answer);
-    while(!checkAnswer(puzzle, row, col, answer)) {
+  var counter = 0;
+  while (counter < blanks.length) {
+    row = blanks[counter][0];
+    col = blanks[counter][1];
+    var answer = puzzle[row][col];
+    while (!checkAnswer(puzzle, row, col, answer)) {
       answer++;
       if (answer > 9) {
-        backtracking = true;
-        i--;
+        counter--;
+      } else {
+        counter++;
       }
     }
-    if (backtracking === false) {
-      puzzle[row][col] = answer;
-      i++;
-    }
-    drawPuzzle(puzzle);
+    console.log(answer + ' works in row: ' + row + ', col: ' + col + '.');
+    puzzle[row][col] = answer;
   }
   drawPuzzle(puzzle);
 }
@@ -420,3 +425,5 @@ getColAnswers(masterArray, false);
 getBoxAnswers(masterArray, false);
 
 brutishForce(masterArray);
+
+// console.log(checkAnswer(masterArray, 0, 0, 3));
