@@ -400,20 +400,21 @@ function brutishForce (array) {
   var row;
   var col;
   var counter = 0;
+  var answer;
   while (counter < blanks.length) {
     row = blanks[counter][0];
     col = blanks[counter][1];
-    var answer = puzzle[row][col];
-    while (!checkAnswer(puzzle, row, col, answer)) {
+    answer = puzzle[row][col];
+    while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
       answer++;
-      if (answer > 9) {
-        counter--;
-      } else {
-        counter++;
-      }
     }
-    console.log(answer + ' works in row: ' + row + ', col: ' + col + '.');
-    puzzle[row][col] = answer;
+    if (answer > 9) {
+      puzzle[row][col] = 0;
+      counter--;
+    } else {
+      puzzle[row][col] = answer;
+      counter++;
+    }
   }
   drawPuzzle(puzzle);
 }
