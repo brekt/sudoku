@@ -41,6 +41,7 @@ button {
 #message {
   text-align: center;
   width: 80%;
-  margin: 200px auto 0 auto;
+  height: 100px;;
+  margin: 20px auto 0 auto;
   border: solid black 1px;
 }
