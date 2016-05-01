@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+nav {
+  width: 100%;
+  margin: auto;
+}
+
+nav h1 {
+  text-align: center;
+  width: 30%;
+  margin: 20px auto 20px auto;
+  font-size: 3em;
+}
+
+table, td {
+  margin: auto;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td {
+  font-size: 2em;
+  padding: 5px 15px 5px 15px;
+}
+
+#solve {
+  text-align: center;
+  width: 100px;
+  margin: 20px auto 20px auto;
+}
+
+button {
+  font-size: 1.5em;
+}
+
+#message {
+  text-align: center;
+  width: 80%;
+  margin: 200px auto 0 auto;
+  border: solid black 1px;
+}

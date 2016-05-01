@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+  <title>Sudoku Solver</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <nav>
+    <h1>Sodoku Solver</h1>
+  </nav>
+  <table id="table">
+  </table>
+  <div id="solve">
+    <button>Solve</button>
+  </div>
+  <div id = "message">
+    Message goes here.
+  </div>
+</body>
+<!-- <script src="sudoku.js"></script>
+<script src="input.js"></script> -->
+<script>
+  var table = document.getElementById('table');
+  var userInputArray = [];
+  for (var row = 0; row < 9; row++) {
+    var tr = document.createElement('tr');
+    table.appendChild(tr);
+    for (var col = 0; col < 9; col++) {
+      var td = document.createElement('td');
+      td.cell = [row, col];
+      td.setAttribute('contenteditable', 'true');
+      tr.appendChild(td);
+      td.innerHTML = '0';
+      td.addEventListener('keyup', function(event) {
+        this.innerHTML = this.innerHTML.slice(0, 1);
+      });
+    }
+  }
+</script>
