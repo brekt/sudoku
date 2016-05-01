@@ -28,10 +28,23 @@
       var td = document.createElement('td');
       td.cell = [row, col];
       td.setAttribute('contenteditable', 'true');
-      tr.appendChild(td);
       td.innerHTML = '0';
-      td.addEventListener('keyup', function(event) {
-        this.innerHTML = this.innerHTML.slice(0, 1);
+      tr.appendChild(td);
+      td.addEventListener('keydown', function(event) {
+        event.preventDefault();
+        console.log(this.cell);
+        var keyCode = event.which;
+        var num = keyCode - 48;
+        if (num >= 1 && num <= 9) {
+          this.innerHTML = num.toString().fontcolor('black');
+          if (this.cell[1] < 8) {
+            this.nextSibling.focus();
+          } else {
+            this.parentNode.nextSibling.firstChild.focus();
+          }
+        } else if (keyCode === 9) {
+          this.nextSibling.focus();
+        }
       });
     }
   }

@@ -25,6 +25,7 @@ table, td {
 td {
   font-size: 2em;
   padding: 5px 15px 5px 15px;
+  color: white;
 }
 
 #solve {
