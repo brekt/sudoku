@@ -16,11 +16,8 @@
     Messages go here.
   </div>
 </body>
-<!-- <script src="sudoku.js"></script>
-<script src="input.js"></script> -->
 <script>
   var table = document.getElementById('table');
-  var userInputArray = [];
   for (var row = 0; row < 9; row++) {
     var tr = document.createElement('tr');
     table.appendChild(tr);
@@ -46,6 +43,8 @@
             this.nextSibling.focus();
           } else  if (this.cell[0] < 8) {
             this.parentNode.nextSibling.firstChild.focus();
+          } else {
+            // TODO: error message
           }
         } else if (keyCode === 37 || (event.shiftKey && keyCode === 9)) { // left arrow or shift+tab
           if (this.cell[1] > 0) {
@@ -57,6 +56,8 @@
           this.parentNode.previousSibling.childNodes[this.cell[1]].focus();
         } else if (this.cell[0] !== 8 && keyCode === 40) {
           this.parentNode.nextSibling.childNodes[this.cell[1]].focus();
+        } else {
+          // TODO: error message
         }
       });
     }
