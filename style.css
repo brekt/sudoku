@@ -1,7 +1,15 @@
+/* 
+Notes: 
+Flexbox/wrapper div so messages are displayed in second column at larger vw.
+*/
+
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
+  font-family: 'Source Code Pro', monospace;
+  color: hsla(0,0%,10%,0.8);
 }
 
 nav {
@@ -11,14 +19,15 @@ nav {
 
 nav h1 {
   text-align: center;
-  width: 30%;
+  max-width: 80vw;
   margin: 20px auto 20px auto;
   font-size: 3em;
+  text-transform: uppercase;
 }
 
 table, td {
   margin: auto;
-  border: 1px solid black;
+  border: 1px solid hsla(0,0%,10%,0.8);
   border-collapse: collapse;
 }
 
@@ -26,6 +35,11 @@ td {
   font-size: 2em;
   padding: 5px 15px 5px 15px;
   color: white;
+}
+
+td:focus {
+  background-color: hsl(0, 100%, 90%);
+  color: hsl(0, 100%, 90%);
 }
 
 #solve {
@@ -36,12 +50,28 @@ td {
 
 button {
   font-size: 1.5em;
+  color: inherit;
+  border: 2px solid hsla(195,100%,70%,0.8);
+  background-color: hsla(0,100%,100%,0);
+  border-radius: 3px;
+}
+
+button:active {
+  background-color: hsla(195,100%,70%,0.8);
+  color: #fff;
+  border-color: #fff;
+  border-radius: 3px;
+  box-shadow: inset 1 5px 5px -5px hsla(190,10%,10%,1);
+}
+
+button:focus {
+  outline: none;
 }
 
 #message {
   text-align: center;
   width: 80%;
-  height: 100px;;
-  margin: 20px auto 0 auto;
+  height: 100px;
+  margin: 20px auto 10px auto;
   border: solid black 1px;
 }

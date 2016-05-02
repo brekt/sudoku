@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <head>
   <title>Sudoku Solver</title>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200,400' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <nav>
-    <h1>Sodoku Solver</h1>
+    <h1>Sudoku Solver</h1>
   </nav>
   <table id="table">
   </table>
@@ -32,7 +33,9 @@
         var keyCode = event.which;
         var num = keyCode - 48;
         if (num >= 1 && num <= 9) {
-          this.innerHTML = num.toString().fontcolor('black');
+          this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
+          this.style.color = 'hsla(0,0%,10%,1)'; 
+          this.style.backgroundColor = "hsl(180,100%,90%)";
           if (this.cell[1] < 8) {
             this.nextSibling.focus();
           } else {
