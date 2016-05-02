@@ -52,9 +52,9 @@
           } else {
             this.parentNode.previousSibling.lastChild.focus();
           }
-        } else if (this.cell[0] !== 0 && keyCode === 38) {
+        } else if (this.cell[0] !== 0 && keyCode === 38) { // up arrow
           this.parentNode.previousSibling.childNodes[this.cell[1]].focus();
-        } else if (this.cell[0] !== 8 && keyCode === 40) {
+        } else if (this.cell[0] !== 8 && keyCode === 40) { // down arrow
           this.parentNode.nextSibling.childNodes[this.cell[1]].focus();
         } else {
           // TODO: error message
