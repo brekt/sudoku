@@ -14,7 +14,7 @@ for (var row = 0; row < 9; row++) {
       var num = keyCode - 48;
       if (num >= 1 && num <= 9) {
         this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
-        this.style.color = 'hsla(0,0%,10%,1)';
+        this.style.color = 'hsl(0,0%,10%)';
         this.style.backgroundColor = 'hsl(180,100%,90%)';
         if (this.cell[1] < 8) {
           this.nextSibling.focus();
@@ -63,11 +63,11 @@ for (var row = 0; row < 9; row++) {
     });
     td.addEventListener('focus', function() {
       if (this.innerHTML === '0') {
-        this.style.backgroundColor = 'hsl(0, 100%, 90%)';
-        this.style.color = 'hsl(0, 100%, 90%)';
+        this.style.backgroundColor = 'hsl(60, 100%, 90%)';
+        this.style.color = 'hsl(60, 100%, 90%)';
       } else {
-        this.style.backgroundColor = 'hsl(0, 100%, 90%)';
-        this.style.color = 'hsla(0,0%,10%,1)';
+        this.style.backgroundColor = 'hsl(60, 100%, 90%)';
+        this.style.color = 'hsl(60,0%,10%)';
       }
     });
     td.addEventListener('blur', function() {
@@ -76,7 +76,7 @@ for (var row = 0; row < 9; row++) {
         this.style.color = 'white';
       } else {
         this.style.backgroundColor = 'hsl(180,100%,90%)';
-        this.style.color = 'hsla(0,0%,10%,1)';
+        this.style.color = 'hsl(0,0%,10%)';
       }
     });
   }

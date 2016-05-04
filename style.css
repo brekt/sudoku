@@ -9,7 +9,7 @@ body {
   padding: 0;
   width: 100%;
   font-family: 'Source Code Pro', monospace;
-  color: hsla(0,0%,10%,0.8);
+  color: hsl(0,0%,30%)
 }
 
 nav {
@@ -27,7 +27,7 @@ nav h1 {
 
 table, td {
   margin: auto;
-  border: 1px solid hsla(0,0%,10%,0.8);
+  border: 1px solid hsl(0,0%,30%);
   border-collapse: collapse;
 }
 
@@ -37,10 +37,25 @@ td {
   color: white;
 }
 
-/*td:focus {
-  background-color: hsl(0, 100%, 90%) !important;
-  color: hsl(0, 100%, 90%) !important;
-}*/
+td:nth-of-type(1) {
+  border-left: 3px solid hsl(0,0%,30%);
+}
+
+td:nth-of-type(3),
+td:nth-of-type(6),
+td:nth-of-type(9) {
+  border-right: 3px solid hsl(0,0%,30%);
+}
+
+tr:nth-of-type(1) {
+  border-top: 3px solid hsl(0,0%,30%);
+}
+
+tr:nth-of-type(3),
+tr:nth-of-type(6),
+tr:nth-of-type(9) {
+  border-bottom: 3px solid hsl(0,0%,30%);
+}
 
 #solve {
   text-align: center;
@@ -51,13 +66,13 @@ td {
 button {
   font-size: 1.5em;
   color: inherit;
-  border: 2px solid hsla(195,100%,70%,0.8);
+  border: 2px solid hsla(0,100%,70%,0.8);
   background-color: hsla(0,100%,100%,0);
   border-radius: 3px;
 }
 
 button:active {
-  background-color: hsla(195,100%,70%,0.8);
+  background-color: hsla(0,100%,70%,0.8);
   color: #fff;
   border-color: #fff;
   border-radius: 3px;
