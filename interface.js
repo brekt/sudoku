@@ -15,7 +15,7 @@ for (var row = 0; row < 9; row++) {
       if (num >= 1 && num <= 9) {
         this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
         this.style.color = 'hsla(0,0%,10%,1)';
-        this.style.backgroundColor = "hsl(180,100%,90%)";
+        this.style.backgroundColor = 'hsl(180,100%,90%)';
         if (this.cell[1] < 8) {
           this.nextSibling.focus();
         } else {
@@ -26,8 +26,6 @@ for (var row = 0; row < 9; row++) {
           this.nextSibling.focus();
         } else  if (this.cell[0] < 8) {
           this.parentNode.nextSibling.firstChild.focus();
-        } else {
-          // TODO: error message
         }
       } else if (keyCode === 37 || (event.shiftKey && keyCode === 9)) { // left arrow or shift+tab
         if (this.cell[1] > 0) {
@@ -39,8 +37,46 @@ for (var row = 0; row < 9; row++) {
         this.parentNode.previousSibling.childNodes[this.cell[1]].focus();
       } else if (this.cell[0] !== 8 && keyCode === 40) { // down arrow
         this.parentNode.nextSibling.childNodes[this.cell[1]].focus();
+      } else if (keyCode === 46) { // delete
+        this.innerHTML = '0';
+        this.style.color = 'white';
+        this.style.backgroundColor = 'white';
+      } else if (keyCode === 8) { // backspace
+        this.innerHTML = '0';
+        this.style.color = 'white';
+        this.style.backgroundColor = 'white';
+        if (this.cell[1] > 0) {
+          this.previousSibling.focus();
+        } else {
+          this.parentNode.previousSibling.lastChild.focus();
+        } 
+      } else if (keyCode === 32) { // space bar
+        this.innerHTML = '0';
+        this.style.color = 'white';
+        this.style.backgroundColor = 'white';
+        if (this.cell[1] < 8) {
+          this.nextSibling.focus();
+        } else  if (this.cell[0] < 8) {
+          this.parentNode.nextSibling.firstChild.focus();
+        }
+      }
+    });
+    td.addEventListener('focus', function() {
+      if (this.innerHTML === '0') {
+        this.style.backgroundColor = 'hsl(0, 100%, 90%)';
+        this.style.color = 'hsl(0, 100%, 90%)';
       } else {
-        // TODO: error message
+        this.style.backgroundColor = 'hsl(0, 100%, 90%)';
+        this.style.color = 'hsla(0,0%,10%,1)';
+      }
+    });
+    td.addEventListener('blur', function() {
+      if (this.innerHTML === '0') {
+        this.style.backgroundColor = 'white';
+        this.style.color = 'white';
+      } else {
+        this.style.backgroundColor = 'hsl(180,100%,90%)';
+        this.style.color = 'hsla(0,0%,10%,1)';
       }
     });
   }
