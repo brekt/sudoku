@@ -8,9 +8,12 @@ for (var row = 0; row < 9; row++) {
     td.setAttribute('contenteditable', 'true');
     td.innerHTML = '0';
     tr.appendChild(td);
+    var keyCodes = [];
     td.addEventListener('keydown', function(event) {
       event.preventDefault();
       var keyCode = event.which;
+      keyCodes.push(keyCode);
+      console.log(keyCodes);
       var num = keyCode - 48;
       if (num >= 1 && num <= 9) {
         this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
@@ -49,7 +52,7 @@ for (var row = 0; row < 9; row++) {
           this.previousSibling.focus();
         } else {
           this.parentNode.previousSibling.lastChild.focus();
-        } 
+        }
       } else if (keyCode === 32) { // space bar
         this.innerHTML = '0';
         this.style.color = 'white';
@@ -59,7 +62,13 @@ for (var row = 0; row < 9; row++) {
         } else  if (this.cell[0] < 8) {
           this.parentNode.nextSibling.firstChild.focus();
         }
+      } else if (keyCodes.indexOf(82) !== -1 && (keyCodes.indexOf(17) !== -1 || keyCodes.indexOf(224) !== -1 || keyCodes.indexOf(91) !== -1 || keyCodes.indexOf(93) !== -1)) {
+        document.location.reload();
+        console.log('command-r detected');
       }
+    });
+    td.addEventListener('keyup', function() {
+      keyCodes = [];
     });
     td.addEventListener('focus', function() {
       if (this.innerHTML === '0') {
