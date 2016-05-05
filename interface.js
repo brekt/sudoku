@@ -1,4 +1,6 @@
 var table = document.getElementById('table');
+var message = document.getElementById('message');
+var solve = document.getElementById('solve');
 for (var row = 0; row < 9; row++) {
   var tr = document.createElement('tr');
   table.appendChild(tr);
@@ -90,3 +92,8 @@ for (var row = 0; row < 9; row++) {
     });
   }
 }
+
+solve.addEventListener('click', function(event) {
+  message.innerHTML = "<span>Solving </span>";
+  message.className = "ellipse";
+});
