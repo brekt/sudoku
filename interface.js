@@ -62,7 +62,7 @@ for (var row = 0; row < 9; row++) {
         } else  if (this.cell[0] < 8) {
           this.parentNode.nextSibling.firstChild.focus();
         }
-      } else if (keyCodes.indexOf(82) !== -1 && (keyCodes.indexOf(17) !== -1 || keyCodes.indexOf(224) !== -1 || keyCodes.indexOf(91) !== -1 || keyCodes.indexOf(93) !== -1)) {
+      } else if (keyCodes.indexOf(82) !== -1 && (keyCodes.indexOf(17) !== -1 || keyCodes.indexOf(224) !== -1 || keyCodes.indexOf(91) !== -1 || keyCodes.indexOf(93) !== -1)) { // custom command-r refresh
         document.location.reload();
         console.log('command-r detected');
       }
