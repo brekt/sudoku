@@ -1,6 +1,6 @@
 var table = document.getElementById('table');
 var message = document.getElementById('message');
-var solve = document.getElementById('solve');
+var solveButton = document.getElementById('solve-button');
 for (var row = 0; row < 9; row++) {
   var tr = document.createElement('tr');
   table.appendChild(tr);
@@ -15,7 +15,6 @@ for (var row = 0; row < 9; row++) {
       event.preventDefault();
       var keyCode = event.which;
       keyCodes.push(keyCode);
-      console.log(keyCodes);
       var num = keyCode - 48;
       if (num >= 1 && num <= 9) {
         this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
@@ -66,7 +65,6 @@ for (var row = 0; row < 9; row++) {
         }
       } else if (keyCodes.indexOf(82) !== -1 && (keyCodes.indexOf(17) !== -1 || keyCodes.indexOf(224) !== -1 || keyCodes.indexOf(91) !== -1 || keyCodes.indexOf(93) !== -1)) { // custom command-r refresh
         document.location.reload();
-        console.log('command-r detected');
       }
     });
     td.addEventListener('keyup', function() {
@@ -93,7 +91,8 @@ for (var row = 0; row < 9; row++) {
   }
 }
 
-solve.addEventListener('click', function(event) {
+solveButton.addEventListener('click', function(event) {
+  clientSolve();
   message.innerHTML = "<span>Solving </span>";
   message.className = "ellipse";
 });

@@ -95,7 +95,7 @@ tr:nth-of-type(9) {
   border-bottom: 3px solid hsl(0,0%,30%);
 }
 
-#solve {
+#solve-button {
   text-align: center;
   width: 100px;
   margin: 20px auto 20px auto;
@@ -150,8 +150,3 @@ button:focus {
     width: 0.8em;
   }
 }
-
-
-
-
-
