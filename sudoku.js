@@ -7,7 +7,7 @@ function solve() {
   // var inputString = '.......214..6..................129..7.6..........3....51.....3....8.76...2.......';
   // var inputString = '010020300002003040050000006004700050000600008070098000300004090000800104006000000';
   // var inputString = '010020300002003040050000006004700050000100008070068000300004090000800104006000000';
-  // var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
+  var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
   // var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
   var splitArray = inputString.split('');
@@ -415,7 +415,7 @@ function solve() {
     while (counter < blanks.length) {
       row = blanks[counter][0];
       col = blanks[counter][1];
-      answer = puzzle[row][col];
+      answer = puzzle[row][col] + 1;
       while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
         answer++;
       }
@@ -445,3 +445,5 @@ function solve() {
   // console.log(checkAnswer(masterArray, 0, 0, 3));
 
 }
+
+solve();
