@@ -407,33 +407,29 @@ function solve() {
   function brutishForce (array) {
     var puzzle = blanksToZeros(array, dupleUnansweredArray);
     var blanks = dupleUnansweredArray;
-    // console.log(puzzle, blanks);
-    var row;
-    var col;
-    var counter = 0;
-    var answer;
-    while (counter < blanks.length) {
+    var row, col, counter, answer, found;
+    var limit = 9;
+    for (counter = 0; counter < blanks.length;) {
       row = blanks[counter][0];
       col = blanks[counter][1];
       answer = puzzle[row][col] + 1;
-      while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
-        answer++;
-      }
-      if (answer > 9) {
-        puzzle[row][col] = 0;
-        counter--;
-      } else {
-        puzzle[row][col] = answer;
-        drawPuzzle(puzzle);
-        counter++;
+      found = false;
+      while (!found && answer <= limit) {
+        if (checkAnswer(puzzle, row, col, answer)) {
+          found = true;
+          puzzle[row][col] = answer;
+          counter++;
+        } else {
+          answer++;
+        }
+        if (!found) {
+          puzzle[row][col] = 0;
+        }
       }
     }
     drawPuzzle(puzzle);
-    var endTime = new Date();
-    var totalTime = endTime - startTime;
-    console.log('Solved in: ' + totalTime + 'ms');
+    return 0;
   }
-
   getRowAnswers(masterArray, false);
 
   getColAnswers(masterArray, false);
