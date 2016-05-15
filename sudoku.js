@@ -404,6 +404,13 @@ function solve() {
     return array;
   }
 
+  function reportSolved(ms) {
+    var message = document.getElementById('message');
+    console.log(message.innerHTML);
+    message.innerHTML = 'Solved in ' + ms + 'ms.';
+    message.style.breakStuff('fuckyeah'); // i don't know why this works
+  }
+
   function brutishForce (array) {
     var puzzle = blanksToZeros(array, dupleUnansweredArray);
     var blanks = dupleUnansweredArray;
@@ -415,7 +422,7 @@ function solve() {
       row = blanks[counter][0];
       col = blanks[counter][1];
       answer = puzzle[row][col];
-      viewCell = table.rows[row].childNodes[col];
+      var viewCell = table.rows[row].childNodes[col];
       while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
         answer++;
       }
@@ -429,14 +436,15 @@ function solve() {
         viewCell.innerHTML = answerString; // write to view
         viewCell.style.backgroundColor = 'hsl(180,100%,90%)';
         viewCell.style.color = 'hsl(0,0%,10%)';
-        drawPuzzle(puzzle);
+        // drawPuzzle(puzzle);
         counter++;
       }
     }
     drawPuzzle(puzzle);
     var endTime = new Date();
     var totalTime = endTime - startTime;
-    console.log('Solved in: ' + totalTime + 'ms');
+    // console.log('Solved in: ' + totalTime + 'ms.');
+    reportSolved(totalTime);
   }
 
   getRowAnswers(masterArray, false);

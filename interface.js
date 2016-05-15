@@ -91,8 +91,12 @@ for (var row = 0; row < 9; row++) {
   }
 }
 
+function styleCell() {
+  // potentially put all styling in here so can be called after event
+}
+
 solveButton.addEventListener('click', function(event) {
   clientSolve();
-  message.innerHTML = "<span>Solving </span>";
-  message.className = "ellipse";
+  message.innerHTML = 'Solving';
+  message.className = 'ellipse';
 });
