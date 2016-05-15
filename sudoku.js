@@ -407,7 +407,6 @@ function solve() {
   function brutishForce (array) {
     var puzzle = blanksToZeros(array, dupleUnansweredArray);
     var blanks = dupleUnansweredArray;
-    // console.log(puzzle, blanks);
     var row;
     var col;
     var counter = 0;
@@ -416,14 +415,20 @@ function solve() {
       row = blanks[counter][0];
       col = blanks[counter][1];
       answer = puzzle[row][col];
+      viewCell = table.rows[row].childNodes[col];
       while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
         answer++;
       }
       if (answer > 9) {
         puzzle[row][col] = 0;
+        viewCell.innerHTML = "0"; // write to view
         counter--;
       } else {
         puzzle[row][col] = answer;
+        var answerString = answer.toString();
+        viewCell.innerHTML = answerString; // write to view
+        viewCell.style.backgroundColor = 'hsl(180,100%,90%)';
+        viewCell.style.color = 'hsl(0,0%,10%)';
         drawPuzzle(puzzle);
         counter++;
       }
@@ -441,7 +446,5 @@ function solve() {
   getBoxAnswers(masterArray, false);
 
   brutishForce(masterArray);
-
-  // console.log(checkAnswer(masterArray, 0, 0, 3));
 
 }
