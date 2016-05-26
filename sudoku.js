@@ -222,7 +222,7 @@ function solve() {
     var message = document.getElementById('message');
     console.log(message.innerHTML);
     message.innerHTML = 'Solved in ' + ms + 'ms.';
-    // message.style.breakStuff('fuckyeah'); // i don't know why this works
+    message.className = '';
   }
 
   function brutishForce (array) {

@@ -96,7 +96,8 @@ function styleCell() {
 }
 
 solveButton.addEventListener('click', function(event) {
-  clientSolve();
+  var message = document.getElementById('message');
   message.innerHTML = 'Solving';
   message.className = 'ellipse';
+  clientSolve();
 });
