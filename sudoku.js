@@ -3,11 +3,11 @@ function solve() {
 
   // var inputString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
   // var inputString = '8..6..9.5.............2.31...7318.6.24.....73...........279.1..5...8..36..3......';
-  var inputString = '.......214..6..................129..7.6..........3....51.....3....8.76...2.......';
+  // var inputString = '.......214..6..................129..7.6..........3....51.....3....8.76...2.......';
   // var inputString = '010020300002003040050000006004700050000600008070098000300004090000800104006000000';
   // var inputString = '010020300002003040050000006004700050000100008070068000300004090000800104006000000';
   // var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
-  // var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+  var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
   var masterArray = new Uint8Array(81);
 
@@ -218,29 +218,14 @@ function solve() {
     return true;
   }
 
-
-  //   function blanksToZeros(array, blanksArray) {
-  //     var counter = 0;
-  //     while (counter < blanksArray.length) {
-  //       row = blanksArray[counter][0];
-  //       col = blanksArray[counter][1];
-  //       if (array[row][col] === ' ') {
-  //         array[row][col] = 0;
-  //       }
-  //       counter++;
-  //     }
-  //     return array;
-  //   }
-  //
-    function reportSolved(ms) {
-      var message = document.getElementById('message');
-      console.log(message.innerHTML);
-      message.innerHTML = 'Solved in ' + ms + 'ms.';
-      // message.style.breakStuff('fuckyeah'); // i don't know why this works
-    }
+  function reportSolved(ms) {
+    var message = document.getElementById('message');
+    console.log(message.innerHTML);
+    message.innerHTML = 'Solved in ' + ms + 'ms.';
+    // message.style.breakStuff('fuckyeah'); // i don't know why this works
+  }
 
   function brutishForce (array) {
-    // var puzzle = blanksToZeros(array, dupleUnansweredArray);
     var puzzle = array;
     var blanks = dupleUnansweredArray;
     var row;
@@ -252,6 +237,7 @@ function solve() {
       col = blanks[counter][1];
       answer = puzzle[row][col];
       var viewCell = table.rows[row].childNodes[col];
+      console.log(viewCell);
       while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
         answer++;
       }
@@ -281,6 +267,9 @@ function solve() {
   //
   //   getBoxAnswers(masterArray, false);
   //
+
+  console.log(masterArray);
+
   brutishForce(masterArray);
 
 }
