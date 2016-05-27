@@ -23,6 +23,7 @@ nav h1 {
   margin: 20px auto 20px auto;
   font-size: 3em;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 .slide-left {
@@ -112,12 +113,12 @@ button {
 }
 
 button:active {
-  background-color: hsl(180,60%,80%);
+  background-color: hsl(180,0%,50%);
   color: #fff;
   border-color: #fff;
   border-radius: 3px;
   box-shadow: inset 1 5px 5px -5px hsla(190,10%,10%,1);
-  transition-duration: 0.05s;
+  transition-duration: 0s;
 }
 
 button:focus {
@@ -133,6 +134,20 @@ button:focus {
   padding-top: 60px;
   border: 1px solid hsl(0,0%,30%);
 }
+
+/***** Board-Flip Animation *****/
+
+.flip {
+  animation: flipanim 1s ease-out;
+}
+
+@keyframes flipanim {
+  50% {
+    transform: rotateY(90deg);
+  }
+}
+
+/***** Ellipse Animation *****/
 
 .ellipse:after {
   overflow: hidden;

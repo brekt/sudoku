@@ -17,7 +17,7 @@ for (var row = 0; row < 9; row++) {
       keyCodes.push(keyCode);
       var num = keyCode - 48;
       if (num >= 1 && num <= 9) {
-        this.innerHTML = num.toString(); // replaced deprecated fontcolor() with this.style.color
+        this.innerHTML = num.toString();
         this.style.color = 'hsl(0,0%,10%)';
         this.style.backgroundColor = 'hsl(180,100%,90%)';
         if (this.cell[1] < 8) {
@@ -96,8 +96,5 @@ function styleCell() {
 }
 
 solveButton.addEventListener('click', function(event) {
-  var message = document.getElementById('message');
-  message.innerHTML = 'Solving';
-  message.className = 'ellipse';
   clientSolve();
 });
