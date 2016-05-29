@@ -237,7 +237,6 @@ function solve() {
       col = blanks[counter][1];
       answer = puzzle[row][col];
       var viewCell = table.rows[row].childNodes[col];
-      console.log(viewCell);
       while (!checkAnswer(puzzle, row, col, answer) && answer <= 9) {
         answer++;
       }
@@ -268,7 +267,7 @@ function solve() {
   //   getBoxAnswers(masterArray, false);
   //
 
-  console.log(masterArray);
+  // console.log(masterArray);
 
   brutishForce(masterArray);
 
