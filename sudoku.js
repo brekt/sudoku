@@ -1,13 +1,16 @@
 function solve() {
+
   var startTime = new Date();
 
+  // test input strings. leave at all 0s for actual web browser app.
+
   //  var inputString = '...28.94.1.4...7......156.....8..57.4.......8.68..9.....196......5...8.3.43.28...';
-  // var inputString = '8..6..9.5.............2.31...7318.6.24.....73...........279.1..5...8..36..3......';
-//   var inputString = '.......214..6..................129..7.6..........3....51.....3....8.76...2.......';
-  // var inputString = '010020300002003040050000006004700050000600008070098000300004090000800104006000000';
-//   var inputString = '010020300002003040050000006004700050000100008070068000300004090000800104006000000';
-//   var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
- var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+  //  var inputString = '8..6..9.5.............2.31...7318.6.24.....73...........279.1..5...8..36..3......';
+  //  var inputString = '.......214..6..................129..7.6..........3....51.....3....8.76...2.......';
+  //  var inputString = '010020300002003040050000006004700050000600008070098000300004090000800104006000000';
+  //  var inputString = '010020300002003040050000006004700050000100008070068000300004090000800104006000000';
+  //  var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
+  var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
   var masterArray = new Uint8Array(81);
 
@@ -19,22 +22,22 @@ function solve() {
     masterArray[index] = value;
   });
 
-  // make puzzle into 2d array
+  /* make puzzle into 2d array. once using int8 arrays, all higher order array
+     functions break in Safari. so no indexOf, forEach, map, etc. Use for loops
+     for anything like that. */
 
   masterArray = function make2dArray() {
     var array2d = [];
     var row = new Uint8Array(9);
-    masterArray.forEach(function(value, index) {
-      if (index !== 0 && (index === 8 || (index - 8) % 9 === 0)) {
-        // row.push(masterArray[index]);
-        row[index] = value;
+    for (var i = 0; i < masterArray.length; i++) {
+      if (i !== 0 && (i === 8 || (i - 8) % 9 === 0)) {
+        row[i] = masterArray[i];
         array2d.push(row);
         row = new Uint8Array(9);
       } else {
-        // row.push(masterArray[index]);
-        row[index] = value;
+        row[i] = masterArray[i];
       }
-    });
+    }
     return array2d;
   }();
 
@@ -42,27 +45,29 @@ function solve() {
 
   var dupleUnansweredArray = function() {
     var newArray = [];
-    masterArray.map(function(rowValue, rowIndex) {
-      masterArray[rowIndex].map(function(colValue, colIndex) {
-        if (masterArray[rowIndex][colIndex] === 0) {
-          var duple = [rowIndex, colIndex];
+    for (var i = 0; i < masterArray.length; i++) {
+      for (var j = 0; j < masterArray[i].length; j++) {
+        if (masterArray[i][j] === 0) {
+          var duple = [i, j];
           newArray.push(duple);
         }
-      });
-    });
+      }
+    }
     return newArray;
   }();
 
-  // Draw the puzzle with known squares in the console.
+  // Draw the puzzle with known squares in the console. Doesn't work in Safari.
 
-  function drawPuzzle(array) {
-    var rowBorder = ' ---+---+---+---+---+---+---+---+--- ';
-    for (var i = 0; i < 9; i++) {
-      console.log(rowBorder);
-      console.log('| ' + array[i].join(' | ') + ' |');
-    }
-    console.log(rowBorder);
-  }
+  // function drawPuzzle(array) {
+  //   var rowBorder = ' ---+---+---+---+---+---+---+---+--- ';
+  //   for (var i = 0; i < 9; i++) {
+  //     console.log(rowBorder);
+  //     console.log('| ' + array[i].join(' | ') + ' |');
+  //   }
+  //   console.log(rowBorder);
+  // }
+
+  // --------------
 
   //   /* This is how I'm numbering the 9 3x3 boxes.
   //
@@ -202,21 +207,27 @@ function solve() {
     if (value === 0) {
       return false;
     }
-    if (array[row].indexOf(value) !== -1) {
-      return false;
+    for (var i = 0; i < array[row].length; i++) {
+      if (array[row][i] === value) {
+        return false;
+      }
     }
-    for (var i = 0; i < array.length; i++) {
-      if (array[i][col] === value) {
+    for (var j = 0; j < array.length; j++) {
+      if (array[j][col] === value) {
         return false;
       }
     }
     var boxNum = whichBox(row, col, false);
     var boxAnswers = getBox(array, boxNum);
-    if (boxAnswers.indexOf(value) !== -1) {
-      return false;
+    for (var k = 0; k < boxAnswers.length; k++) {
+      if (boxAnswers[k] === value) {
+        return false;
+      }
     }
     return true;
   }
+
+  // report the time it took to solve to the view
 
   function reportSolved(ms) {
     var message = document.getElementById('message');
@@ -224,6 +235,8 @@ function solve() {
     message.innerHTML = 'Solved in ' + ms + 'ms.';
     message.className = '';
   }
+
+  // the actual backtracking sudoku solving function
 
   function brutishForce (array) {
     var puzzle = array;
@@ -253,19 +266,12 @@ function solve() {
         counter++;
       }
     }
-    drawPuzzle(puzzle);
+    // drawPuzzle(puzzle);
     var endTime = new Date();
     var totalTime = endTime - startTime;
     console.log('Solved in: ' + totalTime + 'ms.');
     reportSolved(totalTime);
   }
-  //
-  //   getRowAnswers(masterArray, false);
-  //
-  //   getColAnswers(masterArray, false);
-  //
-  //   getBoxAnswers(masterArray, false);
-  //
 
   // console.log(masterArray);
 
