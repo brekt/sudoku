@@ -14,5 +14,8 @@ function clientSolve() {
       inputString += cellValue;
     }
   }
-  solve();
+  // table.addEventListener('animationend', solve, false);
+  setTimeout(function() {
+    solve();
+  }, 500);
 }
