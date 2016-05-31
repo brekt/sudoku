@@ -15,6 +15,27 @@ body {
   justify-content: space-around;
 }
 
+footer {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: hsl(0,0%,50%);
+  margin-top: 2em;
+}
+
+footer a,
+footer a:visited {
+  text-decoration: none;
+  font-weight: 400;
+  color: hsl(0,0%,10%);
+}
+
+footer a:hover {
+  color: hsl(0,0%,50%);
+}
+
+
 /**** Nav Styles & Keyframe Animation ****/
 
 nav h1 {
@@ -44,8 +65,8 @@ nav h1 {
 
 @keyframes slideElemLeft {
   0% {
-    opacity: 0;
-    transform: translate(2em);
+/*    opacity: 0;*/
+    transform: translate(2.1em);
   }
   100% {
     transform: translate(0);
@@ -54,8 +75,8 @@ nav h1 {
 
 @keyframes slideElemRight {
   0% {
-    opacity: 0;
-    transform: translate(-2em);
+/*    opacity: 0;*/
+    transform: translate(-2.1em);
   }
   100% {
     transform: translate(0);
@@ -96,13 +117,13 @@ tr:nth-of-type(9) {
   border-bottom: 3px solid hsl(0,0%,30%);
 }
 
+/**** Button and Message Styles ****/
+
 #solve-button {
   text-align: center;
   width: 100px;
   margin: 20px auto 20px auto;
 }
-
-/**** Button and Message Styles ****/
 
 button {
   font-size: 1.5em;
@@ -163,5 +184,43 @@ button:focus {
   }
   to {
     width: 0.8em;
+  }
+}
+
+/***** Media Queries *****/
+
+@media screen and (max-width:480px) {
+
+  nav h1 {
+    max-width: 90vw;
+    margin: 20px auto -0.5em auto;
+    font-size: 2.5em;
+  }
+  table {
+    transform:scale(0.8,0.8);
+  }
+  
+  #solve-button {
+    margin-top: -20px;
+    margin-bottom: 25px;
+  }
+  
+  button {
+    font-size: 1.4em;
+  }
+
+  #message {
+    display: flex;
+    justify-content: center;
+    width: 85vw;
+    height: 55px;
+    margin: 0px auto 10px auto;
+    padding-top: 30px;
+    border: 1px solid hsl(0,0%,30%);
+  }
+  
+  footer {
+    margin-top: 1em;
+    font-size: 0.8em;
   }
 }
