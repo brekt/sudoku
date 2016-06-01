@@ -1,4 +1,4 @@
-function solve() {
+function solve(inputString) {
 
   var startTime = new Date();
 
@@ -10,7 +10,7 @@ function solve() {
   //  var inputString = '010020300002003040050000006004700050000600008070098000300004090000800104006000000';
   //  var inputString = '010020300002003040050000006004700050000100008070068000300004090000800104006000000';
   //  var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
-  var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+  // var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
   var masterArray = new Uint8Array(81);
 
@@ -26,35 +26,41 @@ function solve() {
      functions break in Safari. so no indexOf, forEach, map, etc. Use for loops
      for anything like that. */
 
-  masterArray = function make2dArray() {
+  function make2dArray(array) {
     var array2d = [];
     var row = new Uint8Array(9);
-    for (var i = 0; i < masterArray.length; i++) {
+    for (var i = 0; i < array.length; i++) {
       if (i !== 0 && (i === 8 || (i - 8) % 9 === 0)) {
-        row[i] = masterArray[i];
+        row[i] = array[i];
         array2d.push(row);
         row = new Uint8Array(9);
       } else {
-        row[i] = masterArray[i];
+        row[i] = array[i];
       }
     }
     return array2d;
-  }();
+  };
+
+  masterArray = make2dArray(masterArray);
 
   // create an array of cells in form [row, col] to hold blanks
 
-  var dupleUnansweredArray = function() {
+  function makeBlanksArray(array) {
+    // console.log(array);
     var newArray = [];
-    for (var i = 0; i < masterArray.length; i++) {
-      for (var j = 0; j < masterArray[i].length; j++) {
-        if (masterArray[i][j] === 0) {
+    for (var i = 0; i < array.length; i++) {
+      console.log(array[i]);
+      for (var j = 0; j < array[i].length; j++) {
+        if (array[i][j] === 0) {
           var duple = [i, j];
           newArray.push(duple);
         }
       }
     }
     return newArray;
-  }();
+  };
+
+  makeBlanksArray(masterArray);
 
   // Draw the puzzle with known squares in the console. Doesn't work in Safari.
 
@@ -231,7 +237,6 @@ function solve() {
 
   function reportSolved(ms) {
     var message = document.getElementById('message');
-    console.log(message.innerHTML);
     message.innerHTML = 'Solved in ' + ms + 'ms.';
     message.className = '';
   }
@@ -240,7 +245,8 @@ function solve() {
 
   function brutishForce (array) {
     var puzzle = array;
-    var blanks = dupleUnansweredArray;
+    var blanks = makeBlanksArray(puzzle);
+    // console.log(blanks);
     var row;
     var col;
     var counter = 0;
@@ -275,6 +281,6 @@ function solve() {
 
   // console.log(masterArray);
 
-  brutishForce(masterArray);
+  // brutishForce(masterArray);
 
 }

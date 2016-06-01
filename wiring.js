@@ -16,6 +16,6 @@ function clientSolve() {
   }
   // table.addEventListener('animationend', solve, false);
   setTimeout(function() {
-    solve();
+    solve(inputString);
   }, 500);
 }
