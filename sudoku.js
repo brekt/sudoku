@@ -12,27 +12,33 @@ function solve(inputString) {
   //  var inputString = '......1.29...5..........8...6..7..4...1.........3..........146.32.....5....8.....';
   // var inputString = '000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
-  var masterArray = new Uint8Array(81);
+  // var masterArray = new Uint8Array(81);
 
-  var stringArray = inputString.split('');
+  var masterArray = inputString.split('');
 
   // add answers to master array. they'll be converted to int8s.
 
-  stringArray.forEach(function(value, index) {
-    masterArray[index] = value;
-  });
+  // stringArray.forEach(function(value, index) {
+  //   masterArray[index] = value;
+  // });
 
   /* make puzzle into 2d array. once using int8 arrays, all higher order array
      functions break in Safari. so no indexOf, forEach, map, etc. Use for loops
      for anything like that. */
 
   function make2dArray(array) {
-    var array2d = [];
+    var array2d = [[]];
+    for (var rowCounter = 0; rowCounter < 9; rowCounter++) {
+      array2d[rowCounter] = new Uint8Array;
+    }
     var row = new Uint8Array(9);
+    rowCounter = 0;
     for (var i = 0; i < array.length; i++) {
       if (i !== 0 && (i === 8 || (i - 8) % 9 === 0)) {
-        row[i] = array[i];
-        array2d.push(row);
+        var j = i % 8;
+        row[i] = array[j];
+        array2d[rowCounter] = row;
+        rowCounter++;
         row = new Uint8Array(9);
       } else {
         row[i] = array[i];
@@ -46,10 +52,10 @@ function solve(inputString) {
   // create an array of cells in form [row, col] to hold blanks
 
   function makeBlanksArray(array) {
-    // console.log(array);
+    console.log(array);
     var newArray = [];
     for (var i = 0; i < array.length; i++) {
-      console.log(array[i]);
+      // console.log(array[i]);
       for (var j = 0; j < array[i].length; j++) {
         if (array[i][j] === 0) {
           var duple = [i, j];
@@ -279,8 +285,6 @@ function solve(inputString) {
     reportSolved(totalTime);
   }
 
-  // console.log(masterArray);
-
-  // brutishForce(masterArray);
+  brutishForce(masterArray);
 
 }
