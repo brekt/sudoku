@@ -213,6 +213,7 @@ function solve(inputString) {
   function checkAnswer(array, row, col, value) {
     if (value === 0) {
       return false;
+      
     }
     for (var i = 0; i < array[row].length; i++) {
       if (array[row][i] === value) {

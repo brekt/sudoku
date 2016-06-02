@@ -1,6 +1,7 @@
 var table = document.getElementById('table');
-var message = document.getElementById('message');
 var solveButton = document.getElementById('solve-button');
+var clearButton = document.getElementById('clear-button');
+
 for (var row = 0; row < 9; row++) {
   var tr = document.createElement('tr');
   table.appendChild(tr);
@@ -98,3 +99,7 @@ function styleCell() {
 solveButton.addEventListener('click', function(event) {
   clientSolve();
 });
+
+clearButton.addEventListener('click', function(event) {
+  document.location.reload();
+})
