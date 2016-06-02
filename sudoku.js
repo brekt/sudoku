@@ -29,21 +29,19 @@ function solve(inputString) {
   function make2dArray(array) {
     var array2d = [[]];
     for (var rowCounter = 0; rowCounter < 9; rowCounter++) {
-      array2d[rowCounter] = new Uint8Array;
+      array2d[rowCounter] = new Uint8Array(9);
     }
-    var row = new Uint8Array(9);
-    rowCounter = 0;
+    var row = 0;
+    var col = 0;
     for (var i = 0; i < array.length; i++) {
-      if (i !== 0 && (i === 8 || (i - 8) % 9 === 0)) {
-        var j = i % 8;
-        row[i] = array[j];
-        array2d[rowCounter] = row;
-        rowCounter++;
-        row = new Uint8Array(9);
-      } else {
-        row[i] = array[i];
+      col = i % 9;
+      if (i !== 0 && i % 9 === 0) {
+        row++;
       }
+      console.log('row: ' + row, 'col: ' + col);
+      array2d[row][col] = array[i];
     }
+    console.log(array2d);
     return array2d;
   };
 
