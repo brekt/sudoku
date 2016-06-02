@@ -38,10 +38,8 @@ function solve(inputString) {
       if (i !== 0 && i % 9 === 0) {
         row++;
       }
-      console.log('row: ' + row, 'col: ' + col);
       array2d[row][col] = array[i];
     }
-    console.log(array2d);
     return array2d;
   };
 
@@ -50,7 +48,6 @@ function solve(inputString) {
   // create an array of cells in form [row, col] to hold blanks
 
   function makeBlanksArray(array) {
-    console.log(array);
     var newArray = [];
     for (var i = 0; i < array.length; i++) {
       // console.log(array[i]);
