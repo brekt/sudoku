@@ -213,7 +213,6 @@ function solve(inputString) {
   function checkAnswer(array, row, col, value) {
     if (value === 0) {
       return false;
-      
     }
     for (var i = 0; i < array[row].length; i++) {
       if (array[row][i] === value) {
@@ -231,7 +230,19 @@ function solve(inputString) {
       if (boxAnswers[k] === value) {
         return false;
       }
+
     }
+    /* Attempts at disabling solve button, displaying error message, changing color of cell to pink 
+    for (var l = 0; l < boxAnswers.length; l++) {
+      if (boxAnswers[l] === boxNum) {
+        return false;
+        document.getElementById('message').innerHTML = "No number can appear more than once in any row or column.";
+        document.getElementById('solve-button').disabled = true;
+        boxAnswers[l].style.display.backgroundColor = 'hsl(300,100%,90%)';
+        }
+      }
+      */
+    
     return true;
   }
 
