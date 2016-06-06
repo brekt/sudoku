@@ -17,6 +17,10 @@ for (var row = 0; row < 9; row++) {
       keyCodes.push(keyCode);
       var num = keyCode - 48;
       if (num >= 1 && num <= 9) {
+        if (!clientCheckAnswer(this.cell[0], this.cell[1], num)) {
+          return false;
+        }
+        message.innerHTML = '';
         this.innerHTML = num.toString();
         this.style.color = 'hsl(0,0%,10%)';
         this.style.backgroundColor = 'hsl(180,100%,90%)';
