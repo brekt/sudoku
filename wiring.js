@@ -44,7 +44,6 @@ function clientCheckAnswer(inputRow, inputCol, inputValue) {
   }
   var inputArray = inputString.split('');
   var client2dArray = make2dArray(inputArray);
-  console.log(inputRow, inputCol, inputValue);
   if (!checkAnswer(client2dArray, inputRow, inputCol, inputValue)) {
     message.innerHTML = 'Sorry, a ' + inputValue + ' in that cell breaks a rule.'
     return false;
