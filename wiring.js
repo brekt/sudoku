@@ -24,7 +24,16 @@ function clientSolve() {
     var totalTime = endTime - startTime;
     console.log('Solved in: ' + totalTime + 'ms.');
     reportSolved(totalTime);
+    resetButton();
   }, 500);
+  
+  function resetButton()  {  
+    solveButton.innerHTML = "Reset";
+    solveButton.id = 'reset-button';
+    document.getElementById('reset-button').addEventListener('click', function(event) {
+      document.location.reload();
+    });
+   };
 }
 
 // this function checks the user input as they enter it to see if they break a rule

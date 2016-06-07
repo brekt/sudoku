@@ -1,6 +1,7 @@
 var table = document.getElementById('table');
 var message = document.getElementById('message');
 var solveButton = document.getElementById('solve-button');
+
 for (var row = 0; row < 9; row++) {
   var tr = document.createElement('tr');
   table.appendChild(tr);
