@@ -20,8 +20,13 @@ for (var row = 0; row < 9; row++) {
       if (num >= 1 && num <= 9) {
         if (!clientCheckAnswer(this.cell[0], this.cell[1], num)) {
           return false;
-        }
-        message.innerHTML = '';
+        };   
+        message.innerHTML = "Type 'c' to clear the puzzle.";
+        document.body.addEventListener('keydown', function(event) { 
+          if ((event.keyCode === 67 || event.keyCode === 99) && !event.altKey && !event.ctrlKey && !event.metaKey) {
+            document.location.reload();
+          };
+        });
         this.innerHTML = num.toString();
         this.style.color = 'hsl(0,0%,10%)';
         this.style.backgroundColor = 'hsl(180,100%,90%)';
