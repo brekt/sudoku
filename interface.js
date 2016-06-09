@@ -24,7 +24,7 @@ for (var row = 0; row < 9; row++) {
         message.innerHTML = "Type 'c' to clear the puzzle.";
         document.body.addEventListener('keydown', function(event) { 
           if ((event.keyCode === 67 || event.keyCode === 99) && !event.altKey && !event.ctrlKey && !event.metaKey) {
-            document.location.reload();
+            resetBoard();
           };
         });
         this.innerHTML = num.toString();
@@ -100,6 +100,7 @@ for (var row = 0; row < 9; row++) {
     });
   }
 }
+
 
 function styleCell() {
   // potentially put all styling in here so can be called after event

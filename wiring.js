@@ -17,6 +17,7 @@ function clientSolve() {
     }
   }
   setTimeout(function() {
+    var solveButton = document.getElementById('solve-button');
     var startTime = new Date();
     var masterArray = inputString.split('');
     masterArray = make2dArray(masterArray);
@@ -24,17 +25,19 @@ function clientSolve() {
     var totalTime = endTime - startTime;
     console.log('Solved in: ' + totalTime + 'ms.');
     reportSolved(totalTime);
-    resetButton();
+    activateResetButton();
   }, 500);
-  
-  function resetButton()  {  
-    solveButton.innerHTML = "Reset";
-    solveButton.id = 'reset-button';
-    document.getElementById('reset-button').addEventListener('click', function(event) {
-      document.location.reload();
-    });
-   };
 }
+
+// this function changes the 'solve' button to a 'reset' button.
+
+function activateResetButton()  {      
+  solveButton.innerHTML = 'Reset';
+  solveButton.id = 'reset-button';
+  document.getElementById('reset-button').addEventListener('click', function(event) {
+    resetBoard();
+  });
+ };  
 
 // this function checks the user input as they enter it to see if they break a rule
 
@@ -58,4 +61,26 @@ function clientCheckAnswer(inputRow, inputCol, inputValue) {
     return false;
   }
   return true;
+}
+
+// this function resets the board
+
+function resetBoard() {
+  var table = document.getElementById('table');
+  var rows = table.rows;
+  var message = document.getElementById('message');
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i].childNodes;
+    for (var j = 0; j < row.length; j++) {
+      var cell = row[j];
+      cell.innerHTML = "0";
+      cell.style.color = "white";
+      cell.style.backgroundColor = "white";
+    }  
+  };
+  message.className = '';
+  table.className = '';
+  solveButton.innerHTML = 'Solve';
+  solveButton.id = 'solve-button';
+  message.innerHTML = "Enter a puzzle and click 'Solve' to see the solution.";
 }
