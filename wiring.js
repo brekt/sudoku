@@ -27,7 +27,9 @@ function clientSolve() {
     reportSolved(totalTime);
     activateResetButton();
   }, 500);
+  
 }
+
 
 // this function changes the 'solve' button to a 'reset' button.
 
@@ -80,7 +82,7 @@ function resetBoard() {
   };
   message.className = '';
   table.className = '';
-  solveButton.innerHTML = 'Solve';
-  solveButton.id = 'solve-button';
+  document.getElementById('reset-button').innerHTML = 'Solve';
+  document.getElementById('reset-button').id = 'solve-button';
   message.innerHTML = "Enter a puzzle and click 'Solve' to see the solution.";
 }
