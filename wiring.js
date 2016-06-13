@@ -17,7 +17,6 @@ function clientSolve() {
     }
   }
   setTimeout(function() {
-    var solveButton = document.getElementById('solve-button');
     var startTime = new Date();
     var masterArray = inputString.split('');
     masterArray = make2dArray(masterArray);
@@ -25,21 +24,9 @@ function clientSolve() {
     var totalTime = endTime - startTime;
     console.log('Solved in: ' + totalTime + 'ms.');
     reportSolved(totalTime);
-    activateResetButton();
   }, 500);
   
 }
-
-
-// this function changes the 'solve' button to a 'reset' button.
-
-function activateResetButton()  {      
-  solveButton.innerHTML = 'Reset';
-  solveButton.id = 'reset-button';
-  document.getElementById('reset-button').addEventListener('click', function(event) {
-    resetBoard();
-  });
- };  
 
 // this function checks the user input as they enter it to see if they break a rule
 
@@ -80,9 +67,7 @@ function resetBoard() {
       cell.style.backgroundColor = "white";
     }  
   };
-  message.className = '';
-  table.className = '';
-  document.getElementById('reset-button').innerHTML = 'Solve';
-  document.getElementById('reset-button').id = 'solve-button';
+  message.className = ''; // reset class to stop ellipse animation.
+  table.className = ''; // reset class to stop flip animation.
   message.innerHTML = "Enter a puzzle and click 'Solve' to see the solution.";
 }

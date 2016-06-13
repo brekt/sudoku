@@ -1,6 +1,6 @@
 var table = document.getElementById('table');
 var message = document.getElementById('message');
-var solveButton = document.getElementById('solve-button');
+var puzzleButton = document.getElementById('puzzle-button');
 
 for (var row = 0; row < 9; row++) {
   var tr = document.createElement('tr');
@@ -106,6 +106,15 @@ function styleCell() {
   // potentially put all styling in here so can be called after event
 }
 
-solveButton.addEventListener('click', function(event) {
-  clientSolve();
+
+// This function toggles the Solve/Reset button and calls the relative function.
+
+puzzleButton.addEventListener('click', function(event) {
+  if (puzzleButton.innerHTML === 'Solve') {
+      clientSolve();
+      this.innerHTML = 'Reset';
+      } else {
+        resetBoard();
+        this.innerHTML = 'Solve';
+      }
 });
