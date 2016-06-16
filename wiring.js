@@ -1,9 +1,10 @@
+// these functions use table and message, which are defined as global consts
+
+
 // this function sends the user input to the solver algorithm when user clicks solve
 
 function clientSolve() {
   var inputString = '';
-  var message = document.getElementById('message');
-  var table = document.getElementById('table');
   message.innerHTML = 'Solving';
   message.className = 'ellipse';
   table.className = 'flip';
@@ -22,19 +23,16 @@ function clientSolve() {
     masterArray = make2dArray(masterArray);
     var endTime = brutishForce(masterArray);
     var totalTime = endTime - startTime;
-    console.log('Solved in: ' + totalTime + 'ms.');
+    // console.log('Solved in: ' + totalTime + 'ms.');
     reportSolved(totalTime);
   }, 500);
-  
 }
 
 // this function checks the user input as they enter it to see if they break a rule
 
 function clientCheckAnswer(inputRow, inputCol, inputValue) {
   var inputString = '';
-  var table = document.getElementById('table');
   var rows = table.rows;
-  var message = document.getElementById('message');
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i].childNodes;
     for (var j = 0; j < row.length; j++) {
@@ -55,9 +53,7 @@ function clientCheckAnswer(inputRow, inputCol, inputValue) {
 // this function resets the board
 
 function resetBoard() {
-  var table = document.getElementById('table');
   var rows = table.rows;
-  var message = document.getElementById('message');
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i].childNodes;
     for (var j = 0; j < row.length; j++) {
@@ -65,7 +61,7 @@ function resetBoard() {
       cell.innerHTML = "0";
       cell.style.color = "white";
       cell.style.backgroundColor = "white";
-    }  
+    }
   };
   message.className = ''; // reset class to stop ellipse animation.
   table.className = ''; // reset class to stop flip animation.

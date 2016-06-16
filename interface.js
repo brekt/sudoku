@@ -20,9 +20,9 @@ for (var row = 0; row < 9; row++) {
       if (num >= 1 && num <= 9) {
         if (!clientCheckAnswer(this.cell[0], this.cell[1], num)) {
           return false;
-        };   
+        };
         message.innerHTML = "Type 'c' to clear the puzzle.";
-        document.body.addEventListener('keydown', function(event) { 
+        document.body.addEventListener('keydown', function(event) {
           if ((event.keyCode === 67 || event.keyCode === 99) && !event.altKey && !event.ctrlKey && !event.metaKey) {
             resetBoard();
           };
@@ -51,7 +51,7 @@ for (var row = 0; row < 9; row++) {
         this.parentNode.previousSibling.childNodes[this.cell[1]].focus();
       } else if (this.cell[0] !== 8 && keyCode === 40) { // down arrow
         this.parentNode.nextSibling.childNodes[this.cell[1]].focus();
-      } else if (keyCode === 46) { // delete
+      } else if (keyCode === 46) { // devare
         this.innerHTML = '0';
         this.style.color = 'white';
         this.style.backgroundColor = 'white';
@@ -101,20 +101,14 @@ for (var row = 0; row < 9; row++) {
   }
 }
 
-
-function styleCell() {
-  // potentially put all styling in here so can be called after event
-}
-
-
 // This function toggles the Solve/Reset button and calls the relative function.
 
 puzzleButton.addEventListener('click', function(event) {
   if (puzzleButton.innerHTML === 'Solve') {
-      clientSolve();
-      this.innerHTML = 'Reset';
-      } else {
-        resetBoard();
-        this.innerHTML = 'Solve';
-      }
+    clientSolve();
+    this.innerHTML = 'Reset';
+  } else {
+    resetBoard();
+    this.innerHTML = 'Solve';
+  }
 });
