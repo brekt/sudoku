@@ -93,7 +93,7 @@ table, td {
 
 td {
   font-size: 2em;
-  padding: 5px 15px 5px 15px;
+  padding: 5px 15px;
   color: white;
 }
 
@@ -122,7 +122,7 @@ tr:nth-of-type(9) {
 #button-wrap {
   text-align: center;
   width: 100px;
-  margin: 20px auto 20px auto;
+  margin: 20px auto;
 }
 
 button {
@@ -196,16 +196,39 @@ button:focus {
 
   nav h1 {
     max-width: 90vw;
-    margin: 20px auto -0.5em auto;
-    font-size: 2.5em;
+    font-size: 2.2em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
   }
-  table {
-    transform:scale(0.8,0.8);
+  
+  td {
+    font-size: 1em;
+    padding: 3px 9px;
+  }
+  
+  td:nth-of-type(1) {
+    border-left-width: 2px;
+  }
+
+  td:nth-of-type(3),
+  td:nth-of-type(6),
+  td:nth-of-type(9) {
+    border-right-width: 2px;
+  }
+
+  tr:nth-of-type(1) {
+    border-top-width: 2px;
+  }
+
+  tr:nth-of-type(3),
+  tr:nth-of-type(6),
+  tr:nth-of-type(9) {
+    border-bottom-width: 2px;
   }
   
   #button-wrap {
-    margin-top: -20px;
-    margin-bottom: 25px;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
   }
   
   button {
@@ -213,15 +236,16 @@ button:focus {
   }
 
   #message {
-    width: 80vw;
+    width: 70vw;
     height: 40px;
-    margin: 0px auto 10px auto;
-    padding: 1em 1em 1em 1em;
+    font-size: 0.9em;
+    margin: 0 auto;
+    padding: 0.9em 0.45em;
     border: 1px solid hsl(0,0%,30%);
   }
   
-  footer {
-    margin-top: 1em;
+  footer p {
+    margin: 0 auto 1.5em auto;
     font-size: 0.8em;
   }
 }
