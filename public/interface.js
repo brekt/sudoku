@@ -21,7 +21,7 @@ for (var row = 0; row < 9; row++) {
         if (!clientCheckAnswer(this.cell[0], this.cell[1], num)) {
           return false;
         };
-        message.innerHTML = "Type 'c' to clear the puzzle.";
+        message.innerHTML = 'Type \'c\' to clear the puzzle.';
         document.body.addEventListener('keydown', function(event) {
           if ((event.keyCode === 67 || event.keyCode === 99) && !event.altKey && !event.ctrlKey && !event.metaKey) {
             resetBoard();
