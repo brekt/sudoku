@@ -51,7 +51,7 @@ for (var row = 0; row < 9; row++) {
         this.parentNode.previousSibling.childNodes[this.cell[1]].focus();
       } else if (this.cell[0] !== 8 && keyCode === 40) { // down arrow
         this.parentNode.nextSibling.childNodes[this.cell[1]].focus();
-      } else if (keyCode === 46) { // devare
+      } else if (keyCode === 46) { // delete
         this.innerHTML = '0';
         this.style.color = 'white';
         this.style.backgroundColor = 'white';
