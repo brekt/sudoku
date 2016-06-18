@@ -58,12 +58,12 @@ function resetBoard() {
     var row = rows[i].childNodes;
     for (var j = 0; j < row.length; j++) {
       var cell = row[j];
-      cell.innerHTML = "0";
-      cell.style.color = "white";
-      cell.style.backgroundColor = "white";
+      cell.innerHTML = '0';
+      cell.style.color = 'white';
+      cell.style.backgroundColor = 'white';
     }
   };
   message.className = ''; // reset class to stop ellipse animation.
   table.className = ''; // reset class to stop flip animation.
-  message.innerHTML = "Enter a puzzle and click 'Solve' to see the solution.";
+  message.innerHTML = 'Enter a puzzle and click \'Solve\' to see the solution.';
 }
