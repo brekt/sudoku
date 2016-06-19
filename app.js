@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res) {
-  res.send('Hello world.');
+  res.sendFile('index.html');
 });
 
 app.listen(sudokuPort, function() {
