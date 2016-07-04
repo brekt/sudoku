@@ -26,6 +26,7 @@ for (var row = 0; row < 9; row++) {
           if ((event.keyCode === 67 || event.keyCode === 99) && !event.altKey && !event.ctrlKey && !event.metaKey) {
             event.preventDefault();
             resetBoard();
+            puzzleButton.innerHTML = 'Solve';
           };
         });
         this.innerHTML = num.toString();
@@ -105,7 +106,7 @@ for (var row = 0; row < 9; row++) {
 // This function toggles the Solve/Reset button and calls the relative function.
 
 puzzleButton.addEventListener('click', function(event) {
-  if (puzzleButton.innerHTML === 'Solve') {
+  if (this.innerHTML === 'Solve') {
     clientSolve();
     this.innerHTML = 'Reset';
   } else {
